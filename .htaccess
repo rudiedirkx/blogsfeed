@@ -1,0 +1,4 @@
+
+RewriteEngine on
+
+RewriteRule app/(.+) $1.php
