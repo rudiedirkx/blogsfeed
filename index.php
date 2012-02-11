@@ -16,11 +16,17 @@ $blogs = Blog::allWithCreator();
 <div class="all-blogs">
 	<ul>
 		<?foreach( $blogs AS $blog ):?>
-			<li><?=l($blog->title, $blog->url, array('title' => 'Go to blog'))?> <?if( $blog->added_by_user_id ):?>&nbsp; (added by <?=l($blog->display_name, 'profile/' . $blog->added_by_user_id)?>)<?endif?> &nbsp; (<?=l('rss', $blog->feed, array('title' => 'Go to feed'))?>)</li>
+			<li class="<?=$blog->enabled ? 'enabled' : 'disabled'?>">
+				<?=l($blog->title, $blog->url, array('class' => 'blog', 'title' => $blog->enabled ? 'This blog has been approved and you can subscribe to its feed.' : "This feed hasn't been approved yet. You can't subscribe to it."))?>
+				<?if( $blog->added_by_user_id ):?>
+					&nbsp;
+					(added by <?=l($blog->display_name, 'profile/' . $blog->added_by_user_id)?>)
+				<?endif?>
+				&nbsp;
+				(<?=l('rss', $blog->feed, array('title' => 'Go to feed'))?>)
+			</li>
 		<?endforeach?>
 	</ul>
 </div>
-
-<pre><? print_r($_SESSION) ?></pre>
 
 

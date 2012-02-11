@@ -4,7 +4,7 @@ require 'inc.config.php';
 
 header('Content-type: text/plain; charset=utf-8');
 set_time_limit(0);
-$keepPostsPerBlog = 20;
+$keepPostsPerBlog = 5;
 
 
 

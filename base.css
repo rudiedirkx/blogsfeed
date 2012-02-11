@@ -14,6 +14,13 @@
 	
 }
 
+.all-blogs .enabled a.blog {
+	color: green;
+}
+.all-blogs .disabled a.blog {
+	color: red;
+}
+
 .subscriptions ul {
 	list-style: none;
 	padding: 0;

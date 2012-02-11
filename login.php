@@ -34,6 +34,4 @@ require 'inc.menu.php';
 
 <p><?=l('Sign up here!', 'signup')?></p>
 
-<pre><? print_r($_SESSION) ?></pre>
-
 
