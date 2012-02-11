@@ -12,6 +12,9 @@ require '../inc/db/db_sqlite.php';
 
 // db connection
 $db = db_sqlite::open(array('database' => './blogs.sqlite3'));
+if ( !$db ) {
+	exit('No database connecto...');
+}
 
 // db schema
 $schema = require 'inc.db-schema.php';
