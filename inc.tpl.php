@@ -39,8 +39,13 @@ function l($label, $uri, $options = array()) {
 }
 
 function baseUrl() {
-	$doc = substr(__FILE__, strlen($_SERVER['DOCUMENT_ROOT']));
-	$base = '/' . str_replace('\\', '/', dirname($doc)) . '/';
+	$dir = dirname(__FILE__);
+	$docroot = $_SERVER['DOCUMENT_ROOT'];
+	$doc = (string)substr($dir, strlen($docroot));
+
+	$base = '/' . str_replace('\\', '/', $doc) . '/';
+	$base = str_replace('//', '/', $base);
+
 	return $base;
 }
 
