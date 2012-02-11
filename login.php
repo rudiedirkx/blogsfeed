@@ -34,4 +34,6 @@ require 'inc.menu.php';
 
 <p><?=l('Sign up here!', 'signup')?></p>
 
+<p>For more info, complaints, issues and the source code: <a href="https://github.com/rudiedirkx/Blogs-feed">https://github.com/rudiedirkx/Blogs-feed</a>.</p>
+
 

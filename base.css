@@ -1,4 +1,18 @@
 
+input.text, textarea {
+	border: solid 1px green;
+	padding: 3px;
+}
+input[type=submit], input[type=button] {
+	padding: 5px 16px;
+}
+input.text:invalid,
+textarea:invalid,
+.error input,
+.error textarea {
+	border-color: red;
+}
+
 .service-menu ul {
 	display: block;
 	list-style: none;

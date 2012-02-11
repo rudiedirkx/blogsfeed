@@ -26,6 +26,7 @@ return array(
 		'password',
 		'enabled' => array('unsigned' => true, 'default' => 1),
 		'display_name',
+		'secret',
 	),
 	'subscriptions' => array(
 		'user_id' => array('unsigned' => true),

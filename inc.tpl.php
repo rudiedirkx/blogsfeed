@@ -1,5 +1,9 @@
 <?php
 
+function formError($error) {
+	return $error ? 'error' : 'valid';
+}
+
 function ul($items) {
 	return '<li>' . implode('</li><li>', $items) . '</li>';
 }
@@ -49,11 +53,15 @@ function baseUrl() {
 	return $base;
 }
 
-function u($uri) {
+function u($uri, $options = array()) {
 	$base = baseUrl();
 
 	if ( 0 !== strpos($uri, 'http') && 0 !== strpos($uri, '/') ) {
 		$uri = str_replace('//', '/', $base . 'app/' . $uri);
+
+		if ( @$options['absolute'] ) {
+			$uri = 'http://' . $_SERVER['HTTP_HOST'] . $uri;
+		}
 	}
 
 	return $uri;
