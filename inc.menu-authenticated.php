@@ -1,0 +1,1 @@
+<?=ul(array(	l('Log out', 'logout'),	l('Blogs', 'index'),	))?>

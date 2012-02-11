@@ -1,0 +1,15 @@
+
+.service-menu ul {
+	display: block;
+	list-style: none;
+}
+.service-menu li {
+	display: inline-block;
+}
+.service-menu li + li:before {
+	content: "|";
+	margin: 0 10px;
+}
+.service-menu a {
+	
+}

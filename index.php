@@ -6,6 +6,8 @@ user::check('logged in');
 
 $blogs = $db->select('blogs', '1', null, 'Blog');
 
+require 'inc.menu.php';
+
 ?>
 <h1>Available blogs</h1>
 

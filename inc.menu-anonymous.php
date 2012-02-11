@@ -1,0 +1,1 @@
+<?=ul(array(	l('Log in', 'login'),	l('Sign up', 'signup'),))?>

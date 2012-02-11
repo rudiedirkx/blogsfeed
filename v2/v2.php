@@ -21,9 +21,10 @@ require 'ensure-db-schema.php';
 $feeds = require 'rss-feeds.php';
 
 // debug //
-$debug = isset($_GET['test']);
-if ( $debug ) {
+$debug = false;
+if ( isset($_GET['test']) ) {
 	$db->begin();
+	$debug = explode(',', $_GET['test']);
 }
 // debug //
 
@@ -32,7 +33,7 @@ $blogs = array();
 // save all new posts from all feeds
 foreach ( $feeds AS $blogName => $feedUrl ) {
 	// debug
-	if ( !$feedUrl || ( isset($_GET['test']) && $_GET['test'] != $blogName ) ) {
+	if ( !$feedUrl || ( $debug && !in_array($blogName, $debug) ) ) {
 		continue;
 	}
 
@@ -41,7 +42,6 @@ foreach ( $feeds AS $blogName => $feedUrl ) {
 	if ( !$xml ) {
 		continue;
 	}
-//var_dump($blogName);
 
 	// blog info
 	$blogTitle = ternary(
@@ -50,7 +50,7 @@ foreach ( $feeds AS $blogName => $feedUrl ) {
 	);
 	$blogUrl = ternary(
 		(string)$xml->channel->link,
-		(string)$xml->link[0]['href']
+		fakeRSSBlogUrl($xml)
 	);
 
 	// save blog
@@ -66,7 +66,6 @@ foreach ( $feeds AS $blogName => $feedUrl ) {
 		$blog = $db->select('blogs', array('name' => $blogName), null, true);
 	}
 	$blogs[$blog->id] = $blog;
-//print_r($blog);
 
 	$update = array('checked' => REQUEST_TIME);
 
@@ -89,7 +88,7 @@ foreach ( $feeds AS $blogName => $feedUrl ) {
 		$postTitle = (string)$blogPost->title;
 		$postUrl = ternary(
 			(string)$blogPost->link,
-			(string)$blogPost->link[0]['href']
+			fakeRSSBlogUrl($blogPost)
 		);
 
 		// new post?
@@ -115,7 +114,6 @@ foreach ( $feeds AS $blogName => $feedUrl ) {
 	}
 
 	// save blog update
-//print_r($update);
 	$db->update('blogs', $update, array('id' => $blog->id));
 }
 
@@ -158,6 +156,14 @@ $db->update('blog_posts', 'new = 0', '1');
 echo "\n" . number_format(microtime(1) - $_start, 4) . "\n";
 
 
+
+function fakeRSSBlogUrl($xml) {
+	foreach ( $xml->link AS $link ) {
+		if ( 'alternate' == (string)$link['rel'] ) {
+			return (string)$link['href'];
+		}
+	}
+}
 
 function ternary($a, $b) {
 	$args = func_get_args();

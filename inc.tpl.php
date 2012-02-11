@@ -1,5 +1,9 @@
 <?php
 
+function ul($items) {
+	return '<li>' . implode('</li><li>', $items) . '</li>';
+}
+
 function attr($attr, $except = array()) {
 	$html = '';
 
@@ -26,13 +30,14 @@ function l($label, $uri, $options = array()) {
 	return '<a' . $attr . ' href="' . u($uri) . '">' . $label . '</a>';
 }
 
-function u($uri) {
-	static $base;
+function baseUrl() {
+	$doc = substr(__FILE__, strlen($_SERVER['DOCUMENT_ROOT']));
+	$base = '/' . str_replace('\\', '/', dirname($doc)) . '/';
+	return $base;
+}
 
-	if ( !$base ) {
-		$doc = substr(__FILE__, strlen($_SERVER['DOCUMENT_ROOT']));
-		$base = '/' . str_replace('\\', '/', dirname($doc)) . '/';
-	}
+function u($uri) {
+	$base = baseUrl();
 
 	if ( 0 !== strpos($uri, 'http') && 0 !== strpos($uri, '/') ) {
 		$uri = str_replace('//', '/', $base . 'app/' . $uri);

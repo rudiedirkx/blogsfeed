@@ -20,6 +20,8 @@ if ( isset($_POST['usr'], $_POST['pwd']) ) {
 	echo "Nope...\n\n";
 }
 
+require 'inc.menu.php';
+
 ?>
 <form method="post" action>
 	<p>Username: <input name="usr" required /></p>
