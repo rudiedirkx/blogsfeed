@@ -16,8 +16,16 @@ function attr($attr, $except = array()) {
 	return $html;
 }
 
-function redirect($uri) {
-	$uri = u($uri);
+function redirect($uri = null) {
+	if ( null !== $uri ) {
+		$uri = u($uri);
+	}
+	else {
+		$uri = $_SERVER['REQUEST_URI'];
+		/*if ( is_int($p = strpos($uri, '?')) ) {
+			$uri = substr($uri, 0, $p);
+		}*/
+	}
 
 	header('Location: ' . $uri);
 	exit;

@@ -4,17 +4,23 @@ require 'inc.config.php';
 
 user::check('logged in');
 
-$blogs = $db->select('blogs', '1', null, 'Blog');
-
 require 'inc.menu.php';
 
-?>
-<h1>Available blogs</h1>
+$blogs = Blog::allWithCreator();
 
-<ul>
-	<?foreach( $blogs AS $blog ):?>
-		<li><?=l($blog->title, $blog->url, array('title' => 'Go to blog'))?> &nbsp; <?=l('>>', $blog->feed, array('title' => 'Go to feed'))?></li>
-	<?endforeach?>
-<ul>
+?>
+<h1>
+	All blogs
+</h1>
+
+<div class="all-blogs">
+	<ul>
+		<?foreach( $blogs AS $blog ):?>
+			<li><?=l($blog->title, $blog->url, array('title' => 'Go to blog'))?> <?if( $blog->added_by_user_id ):?>&nbsp; (added by <?=l($blog->display_name, 'profile/' . $blog->added_by_user_id)?>)<?endif?> &nbsp; (<?=l('rss', $blog->feed, array('title' => 'Go to feed'))?>)</li>
+		<?endforeach?>
+	</ul>
+</div>
+
+<pre><? print_r($_SESSION) ?></pre>
 
 

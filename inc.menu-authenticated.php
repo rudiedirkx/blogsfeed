@@ -1,1 +1,1 @@
-<?=ul(array(	l('Log out', 'logout'),	l('Blogs', 'index'),	))?>
+<?=ul(array(	l('Log out', 'logout'),	l('All blogs', 'index'),	l('Add feed', 'add-feed'),	l('Your subscriptions', 'subscriptions'),))?>

@@ -4,6 +4,52 @@ $user = false;
 
 class User extends Model {
 
+	function __construct() {
+		if ( isset($this->id) ) {
+			$this->id = (int)$this->id;
+		}
+	}
+
+	function __tostring() {
+		return (string)$this->display_name;
+	}
+
+
+	static function messages($clear = true) {
+		$messages = (array)@$_SESSION['blogsfeed']['messages'];
+
+		if ( $clear ) {
+			$_SESSION['blogsfeed']['messages'] = array();
+		}
+
+		return $messages;
+	}
+
+	static function error($message) {
+		return self::message($message, 'error');
+	}
+
+	static function warning($message) {
+		return self::message($message, 'warning');
+	}
+
+	static function success($message) {
+		return self::message($message, 'success');
+	}
+
+	static function message($text, $type = 'info') {
+		self::logincheck();
+
+		if ( !isset($_SESSION['blogsfeed']['messages']) || !is_array($_SESSION['blogsfeed']['messages']) ) {
+			$_SESSION['blogsfeed']['messages'] = array();
+		}
+
+		$_SESSION['blogsfeed']['messages'][] = array(
+			'text' => $text,
+			'type' => $type,
+		);
+	}
+
 	static function get($conditions) {
 		if ( !is_array($conditions) ) {
 			$conditions = array('id' => (int)$conditions);
@@ -11,7 +57,7 @@ class User extends Model {
 
 		global $db;
 		return $db->select('users', $conditions, null, array(
-			'class' => 'User',
+			'class' => __CLASS__,
 			'first' => true,
 		));
 	}
@@ -27,19 +73,26 @@ class User extends Model {
 			if ( $_SESSION['blogsfeed']['ip'] == md5($_SERVER['REMOTE_ADDR']) ) {
 				global $user;
 
-				$user = User::get((int)$_SESSION['blogsfeed']['uid']);
+				$user = User::get(array(
+					'id' => (int)$_SESSION['blogsfeed']['uid'],
+					'enabled' => 1,
+				));
 
 				if ( $user ) {
-					define('USER_ID', $user->id);
+					define('USER_ID', (int)$user->id);
 
 					return true;
 				}
 			}
+
+			// clear invalid session
+			unset($_SESSION['blogsfeed']);
 		}
 	}
 
 	static function access($zone) {
 		switch ( strtolower($zone) ) {
+			// User stuff
 			case 'logged in':
 				return user::logincheck();
 
@@ -52,26 +105,33 @@ class User extends Model {
 			case 'log out':
 				return user::logincheck();
 
-			case 'admin users':
-				return !user::logincheck();
-
 			case 'add feed':
-				return !user::logincheck();
+				return user::logincheck();
+
+			// Admin stuff
+			case 'admin users':
+				return user::logincheck() && USER_ID == 1;
 
 			case 'admin feeds':
-				return !user::logincheck();
+				return user::logincheck() && USER_ID == 1;
+
+			case 'admin subscriptions':
+				return user::logincheck() && USER_ID == 1;
 		}
 	}
 
 	static function check($zones) {
 		foreach ( (array)$zones AS $zone ) {
 			if ( !user::access($zone) ) {
-				$extra = '';
+				$prefix = $postfix = '';
+
+				$prefix = '<meta name="viewport" content="width=device-width">';
+
 				if ( 'logged in' == $zone ) {
-					$extra = ' ' . l('Do it here!', 'login');
+					$postfix = ' ' . l('Do it here!', 'login');
 				}
 
-				exit('Access denied (' . $zone . ').' . $extra);
+				exit($prefix . 'Access denied (' . $zone . ').' . $postfix);
 			}
 		}
 	}

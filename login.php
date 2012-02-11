@@ -6,8 +6,9 @@ user::check('not logged in');
 
 if ( isset($_POST['usr'], $_POST['pwd']) ) {
 	$user = User::get(array(
-		'username' => $_POST['usr'],
-		'password' => $_POST['pwd'],
+		'email' => $_POST['usr'],
+		'password' => sha1($_POST['pwd']),
+		'enabled' => 1,
 	));
 	if ( $user ) {
 		$_SESSION['blogsfeed'] = array(
@@ -17,18 +18,22 @@ if ( isset($_POST['usr'], $_POST['pwd']) ) {
 		redirect('index');
 	}
 
-	echo "Nope...\n\n";
+	user::error("That's not it...");
+
+	redirect();
 }
 
 require 'inc.menu.php';
 
 ?>
 <form method="post" action>
-	<p>Username: <input name="usr" required /></p>
+	<p>E-mail address: <input name="usr" required /></p>
 	<p>Password: <input type="password" name="pwd" required /></p>
 	<p><input type="submit" /></p>
 </form>
 
 <p><?=l('Sign up here!', 'signup')?></p>
+
+<pre><? print_r($_SESSION) ?></pre>
 
 

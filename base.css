@@ -13,3 +13,20 @@
 .service-menu a {
 	
 }
+
+.subscriptions ul {
+	list-style: none;
+	padding: 0;
+}
+.subscriptions input:checked + span {
+	color: green;
+}
+.subscriptions input:not(:checked) + span {
+	color: red;
+}
+.subscriptions .active input:not(:checked) + span:after,
+.subscriptions .inactive input:checked + span:after {
+	content: "<< You changed this one. Don't forget to submit!";
+	margin-left: 20px;
+	color: orange;
+}

@@ -70,7 +70,6 @@ foreach ( $feeds AS $blogName => $feedUrl ) {
 	$update = array('checked' => REQUEST_TIME);
 
 	// cycle posts
-	$posts = array();
 	if ( $xml->channel && $xml->channel->item ) {
 		$posts = $xml->channel->item;
 	}
