@@ -163,17 +163,22 @@ foreach ( $userHtmls AS $userId => $info ) {
 $db->update('blog_posts', 'new = 0', '1');
 
 // delete old blog posts
-$postsPerBlog = $db->fetch_fields('select blog_id, group_concat(id) post_ids from blog_posts group by blog_id');
-foreach ( $postsPerBlog AS $blogId => $postIds ) {
-	$postIds = array_map('intval', explode(',', $postIds));
-	rsort($postIds, SORT_NUMERIC);
+try {
+	$postsPerBlog = $db->fetch_fields('select blog_id, group_concat(id) post_ids from blog_posts group by blog_id');
+	foreach ( $postsPerBlog AS $blogId => $postIds ) {
+		$postIds = array_map('intval', explode(',', $postIds));
+		rsort($postIds, SORT_NUMERIC);
 
-	if ( $boundary = array_slice($postIds, $keepPostsPerBlog-1, 1) ) {
-		$boundary = $boundary[0];
+		if ( $boundary = array_slice($postIds, $keepPostsPerBlog-1, 1) ) {
+			$boundary = $boundary[0];
 
-		// delete from this blog what's older than $boundary
-		$db->delete('blog_posts', 'blog_id = ? AND id < ?', array($blogId, $boundary));
+			// delete from this blog what's older than $boundary
+			$db->delete('blog_posts', 'blog_id = ? AND id < ?', array($blogId, $boundary));
+		}
 	}
+}
+catch ( db_exception $ex ) {
+	echo "\n\nEXCEPTION: " . $ex->getMessage() . "\n\n\n";
 }
 
 
@@ -188,6 +193,6 @@ if ( !$debug ) {
 
 
 
-echo "\n\n\n\n\n" . number_format(microtime(1) - $_start, 2) . "\n";
+echo "\n\n\n\n\n" . number_format(microtime(1) - $_start, 2) . "\n\n";
 
 
