@@ -106,7 +106,7 @@ echo "\n\n";
 // PART 3 -- send per-user e-mail //
 
 // fetch subscriptions
-$subscriptions = $db->fetch('SELECT u.id user_id, u.email, u.display_name, s.blog_id FROM subscriptions s LEFT JOIN users u ON (s.user_id = u.id) WHERE s.blog_id IN (?) ORDER BY u.id', array(array_keys($postHtmls)));
+$subscriptions = $db->fetch('SELECT u.id user_id, u.email, u.display_name, s.blog_id FROM subscriptions s, users u WHERE s.user_id = u.id AND u.enabled <> 0 AND s.blog_id IN (?) ORDER BY u.id', array(array_keys($postHtmls)));
 
 // combine subscriptions, users and blog posts
 $userHtmls = array();

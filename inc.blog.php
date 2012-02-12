@@ -2,30 +2,52 @@
 
 class Blog extends Model {
 
-	static function allWithCreator() {
-		global $db;
+	static function allWithCreator($account = null) {
+		global $db, $user;
+
+		$account or $account = $user;
+		$uid = $account ? (int)$account->id : -1;
 
 		$options = array(
 			'class' => __CLASS__,
 			'params' => array(''),
 		);
-		return $db->fetch_by_field('SELECT b.*, (name <> ?) AS enabled, u.display_name FROM blogs b LEFT JOIN users u ON (u.id = b.added_by_user_id) ORDER BY b.title', 'id', $options);
+
+		$where = '';
+		if ( !user::access('admin feeds') ) {
+			$where = ' WHERE (private = 0 OR added_by_user_id = ?)';
+			$options['params'][] = $uid;
+		}
+
+		$sql = 'SELECT b.*, (name <> ?) AS enabled, u.display_name FROM blogs b LEFT JOIN users u ON (u.id = b.added_by_user_id)' . $where . ' ORDER BY b.title';
+		return $db->fetch_by_field($sql, 'id', $options);
 	}
 
-	static function all() {
-		global $db;
+	static function all($account = null) {
+		global $db, $user;
+
+		$account or $account = $user;
+		$uid = $account ? (int)$account->id : -1;
 
 		$options = array(
 			'class' => __CLASS__,
 			'params' => array(''),
 		);
-		return $db->fetch_by_field('SELECT *, (name <> ?) AS enabled FROM blogs ORDER BY title', 'id', $options);
+
+		$where = '';
+		//if ( !user::access('admin feeds') ) {
+			$where = ' WHERE (private = 0 OR added_by_user_id = ?)';
+			$options['params'][] = $uid;
+		//}
+
+		$sql = 'SELECT *, (name <> ?) AS enabled FROM blogs' . $where . ' ORDER BY title';
+		return $db->fetch_by_field($sql, 'id', $options);
 	}
 
 	static function allForCronjob() {
 		global $db;
 
-		return $db->select_by_field('blogs', 'id', 'name <> ? ORDER BY RAND()', array(''), __CLASS__);
+		return $db->select_by_field('blogs', 'id', '(name <> ? OR private <> 0) ORDER BY RAND()', array(''), __CLASS__);
 	}
 
 }

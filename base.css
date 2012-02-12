@@ -28,6 +28,10 @@ textarea:invalid,
 	
 }
 
+ul .scope {
+	font-weight: bold;
+	color: black;
+}
 .all-blogs .enabled a.blog {
 	color: green;
 }

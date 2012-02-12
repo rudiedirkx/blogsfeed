@@ -4,7 +4,7 @@
 <title>Blogs feed</title>
 
 <link rel="stylesheet" href="<?=baseUrl()?>base.css" />
-<link rel="shortcut icon" href="<?=baseUrl()?>favicon.png" type="image/x-icon">
+<link rel="shortcut icon" href="<?=baseUrl()?>favicon.ico" type="image/x-icon">
 
 <?if( $messages = user::messages() ):?>
 	<div class="messages">

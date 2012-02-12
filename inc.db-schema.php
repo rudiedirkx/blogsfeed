@@ -10,6 +10,7 @@ return array(
 		'checked' => array('unsigned' => true),
 		'feed',
 		'added_by_user_id' => array('unsigned' => true, 'default' => 0),
+		'private' => array('unsigned' => true, 'default' => 0),
 	),
 	'blog_posts' => array(
 		'id' => array('pk' => true),

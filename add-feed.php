@@ -32,6 +32,7 @@ if ( isset($_POST['url']) ) {
 				'checked' => 0,
 				'feed' => $feed['feed'],
 				'added_by_user_id' => USER_ID,
+				'private' => (int)!empty($_POST['private']),
 			);
 			$db->insert('blogs', $data);
 
@@ -56,10 +57,12 @@ require 'inc.menu.php';
 </h1>
 
 <form method="post" action>
-	<p>Feed URL: <input type="url" name="url" value="<?=h($feedUrl)?>" required /></p>
+	<p>Feed URL: <input type="url" name="url" value="<?=h($feedUrl)?>" autofocus required /></p>
 	<?if( $feedUrl && !$feedExists ):?>
 		<p><label><input type="checkbox" name="confirm" checked /> Yup, that's the one. Save it!</label></p>
+		<p><label><input type="checkbox" name="private" /> This is a <strong>private</strong> feed. (I won't tell.)</label></p>
 	<?endif?>
+
 	<p><input type="submit" value="<?=$feedUrl ? 'Save' : 'Preview'?>" /></p>
 </form>
 
