@@ -4,9 +4,25 @@ require 'inc.config.php';
 
 user::check('logged in');
 
+$blogs = Blog::allWithCreator();
+
+if ( isset($_GET['enable'], $_GET['name'], $blogs[$_GET['enable']]) ) {
+	if ( '' != ($name = trim($_GET['name'])) ) {
+		$blog = $blogs[$_GET['enable']];
+
+		if ( !$blog->name ) {
+			$db->update('blogs', array(
+				'name' => $name,
+			), array(
+				'id' => $blog->id,
+			));
+		}
+	}
+}
+
 require 'inc.menu.php';
 
-$blogs = Blog::allWithCreator();
+$admin = user::access('admin feeds');
 
 ?>
 <h1>
@@ -24,6 +40,10 @@ $blogs = Blog::allWithCreator();
 				<?endif?>
 				&nbsp;
 				(<?=l('rss', $blog->feed, array('title' => 'Go to feed'))?>)
+				<?if( !$blog->enabled && $admin ):?>
+					&nbsp;
+					(enable: <?=l('click', 'index?enable=' . $blog->id . '&name=')?>)
+				<?endif?>
 			</li>
 		<?endforeach?>
 	</ul>
