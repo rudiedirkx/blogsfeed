@@ -4,10 +4,13 @@ require 'inc.config.php';
 
 user::check('logged in');
 
+$account = isset($args[0]) ? user::get($args[0]) : false;
+
 require 'inc.menu.php';
 
-echo '<pre>';
-print_r($args);
-echo '</pre>';
+?>
+<h1>
+	<?=h($account)?>
+</h1>
 
 
