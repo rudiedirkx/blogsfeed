@@ -129,6 +129,9 @@ class User extends Model {
 
 			case 'admin subscriptions':
 				return user::logincheck() && USER_ID == 1;
+
+			case 'exec queries':
+				return user::logincheck() && USER_ID == 1;
 		}
 	}
 
