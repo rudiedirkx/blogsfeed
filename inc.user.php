@@ -10,10 +10,22 @@ class User extends Model {
 		}
 	}
 
+	function getSubscriptions() {
+		global $db;
+
+		return iterator_to_array($db->select('subscriptions', array('user_id' => $this->id)));
+	}
+
 	function __tostring() {
 		return (string)$this->display_name;
 	}
 
+
+	static function all() {
+		global $db;
+
+		return $db->select('users', 1, null, __CLASS__);
+	}
 
 	static function messages($clear = true) {
 		$messages = (array)@$_SESSION['blogsfeed']['messages'];
