@@ -1,5 +1,7 @@
 <?php
 
+chdir(dirname(__FILE__));
+
 $_start = microtime(1);
 define('REQUEST_TIME', time());
 
