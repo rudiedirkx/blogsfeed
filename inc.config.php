@@ -7,8 +7,6 @@ define('REQUEST_TIME', time());
 
 header('Content-type: text/html; charset=utf-8');
 
-require 'inc.args.php';
-
 // prerequisites
 require '../inc/db/db_sqlite.php';
 
@@ -18,9 +16,11 @@ if ( !$db ) {
 	exit('No database connecto...');
 }
 
+require 'inc.args.php';
+
 // db schema
 $schema = require 'inc.db-schema.php';
-require 'inc.ensure-db-schema.php';
+$db->schema($schema);
 
 // class
 function blogs_feed_class_autoloader($class) {
