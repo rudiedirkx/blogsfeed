@@ -68,7 +68,7 @@ function u($uri, $options = array()) {
 }
 
 function h($str) {
-	return htmlspecialchars($str, ENT_COMPAT | ENT_HTML401, 'UTF-8');
+	return htmlspecialchars($str, ENT_COMPAT, 'UTF-8');
 }
 
 
