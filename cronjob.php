@@ -1,6 +1,6 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.config.php';
 
 header('Content-type: text/plain; charset=utf-8');
 set_time_limit(0);
@@ -163,7 +163,7 @@ foreach ( $userHtmls AS $userId => $info ) {
 $db->update('blog_posts', 'new = 0', '1');
 
 // delete old blog posts
-try {
+/*try {
 	$postsPerBlog = $db->fetch_fields('select blog_id, group_concat(id) post_ids from blog_posts group by blog_id');
 	foreach ( $postsPerBlog AS $blogId => $postIds ) {
 		$postIds = array_map('intval', explode(',', $postIds));
@@ -179,7 +179,7 @@ try {
 }
 catch ( db_exception $ex ) {
 	echo "\n\nEXCEPTION: " . $ex->getMessage() . "\n\n\n";
-}
+}*/
 
 
 
