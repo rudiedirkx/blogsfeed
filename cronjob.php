@@ -25,6 +25,7 @@ if ( isset($_GET['debug']) ) {
 // PART 1 -- parse feeds for all blogs //
 
 $blogs = Blog::allForCronjob();
+print_r($blogs);
 
 foreach ( $blogs AS $blog ) {
 	if ( $debug && !in_array($blog->name, $debug) ) {
@@ -161,6 +162,7 @@ foreach ( $userHtmls AS $userId => $info ) {
 
 // update index
 $db->update('blog_posts', 'new = 0', '1');
+var_dump($db->affected_rows());
 
 // delete old blog posts
 /*try {
