@@ -28,7 +28,7 @@ if ( isset($_GET['uid'], $_GET['secret']) ) {
 
 		user::success('Account verified and logged in');
 
-		redirect('index');
+		redirect('index.php');
 	}
 
 	// fail -- notify
@@ -70,7 +70,7 @@ if ( isset($_POST['email'], $_POST['name'], $_POST['password']) ) {
 
 					// send e-mail
 					$subject = 'Magic link for Blogs feed';
-					$html = 'Magic link: ' . u('signup?uid=' . $user->id . '&secret=' . $user->secret, array('absolute' => 1)) . "\n";
+					$html = 'Magic link: ' . u('signup.php?uid=' . $user->id . '&secret=' . $user->secret, array('absolute' => 1)) . "\n";
 					@mail($email, $subject, $html, "From: Blogs feed <blogsfeed@hoblox.nl>\r\n");
 
 					user::success("I've sent you a confirmation e-mail. Click the link in it.");
@@ -122,6 +122,6 @@ require 'inc.menu.php';
 	<p><input type="submit" /></p>
 </form>
 
-<p><?=l('Log in here!', 'login')?></p>
+<p><?= l('Log in here!', 'login.php') ?></p>
 
 

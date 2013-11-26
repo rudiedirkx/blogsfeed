@@ -1,1 +1,1 @@
-<?=ul(array(	l((string)$user, 'profile/' . $user->id),	l('Log out', 'logout'),	l('All blogs', 'index'),	l('Add feed', 'add-feed'),	l('Your subscriptions', 'subscriptions'),	l('Users', 'users'),))?>
+<?= ul(array(	l((string)$user, 'profile.php?args=' . $user->id),	l('Log out', 'logout.php'),	l('All blogs', 'index.php'),	l('Add feed', 'add-feed.php'),	l('Your subscriptions', 'subscriptions.php'),	l('Users', 'users.php'),)) ?>

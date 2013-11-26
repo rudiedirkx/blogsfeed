@@ -6,4 +6,4 @@ user::check('logged in');
 
 unset($_SESSION['blogsfeed']);
 
-redirect('index');
+redirect('index.php');

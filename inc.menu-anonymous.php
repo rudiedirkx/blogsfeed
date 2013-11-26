@@ -1,1 +1,1 @@
-<?=ul(array(	l('Log in', 'login'),	l('Sign up', 'signup'),))?>
+<?= ul(array(	l('Log in', 'login.php'),	l('Sign up', 'signup.php'),)) ?>

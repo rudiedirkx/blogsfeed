@@ -16,7 +16,7 @@ $users = User::all();
 <div class="users">
 	<ul>
 		<?foreach( $users AS $user ):?>
-			<li><?=l((string)$user, 'profile/' . $user->id)?> (<?=count($user->subscriptions)?> subscriptions)</li>
+			<li><?=l((string)$user, 'profile.php?args=' . $user->id)?> (<?=count($user->subscriptions)?> subscriptions)</li>
 		<?endforeach?>
 	</ul>
 </div>

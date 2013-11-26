@@ -57,8 +57,6 @@ function u($uri, $options = array()) {
 	$base = baseUrl();
 
 	if ( 0 !== strpos($uri, 'http') && 0 !== strpos($uri, '/') ) {
-		$uri = str_replace('//', '/', $base . 'app/' . $uri);
-
 		if ( @$options['absolute'] ) {
 			$uri = 'http://' . $_SERVER['HTTP_HOST'] . $uri;
 		}

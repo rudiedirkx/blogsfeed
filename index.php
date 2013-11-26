@@ -41,13 +41,13 @@ require 'inc.menu.php';
 				<?=l($blog->title, $blog->url, array('class' => 'blog', 'title' => $blog->enabled ? 'This blog has been approved and you can subscribe to its feed.' : "This feed hasn't been approved yet. You can't subscribe to it."))?>
 				<?if( $blog->added_by_user_id ):?>
 					&nbsp;
-					(added by <?=l($blog->display_name, 'profile/' . $blog->added_by_user_id)?>)
+					(added by <?=l($blog->display_name, 'profile.php?args=' . $blog->added_by_user_id)?>)
 				<?endif?>
 				&nbsp;
 				(<?=l('rss', $blog->feed, array('title' => 'Go to feed'))?>)
 				<?if( !$blog->private && !$blog->enabled && $admin ):?>
 					&nbsp;
-					(enable: <?=l('click', 'index?enable=' . $blog->id . '&name=', array('class' => 'enable-feed'))?>)
+					(enable: <?=l('click', 'index.php?enable=' . $blog->id . '&name=', array('class' => 'enable-feed'))?>)
 				<?endif?>
 			</li>
 		<?endforeach?>

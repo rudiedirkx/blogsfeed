@@ -143,7 +143,7 @@ class User extends Model {
 				$prefix = '<meta name="viewport" content="width=device-width">';
 
 				if ( 'logged in' == $zone ) {
-					$postfix = ' ' . l('Do it here!', 'login');
+					$postfix = ' ' . l('Do it here!', 'login.php');
 				}
 
 				exit($prefix . 'Access denied (' . $zone . ').' . $postfix);

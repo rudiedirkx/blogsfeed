@@ -38,7 +38,7 @@ if ( isset($_POST['url']) ) {
 
 			user::success('Blog added: ' . h($data['title']));
 
-			redirect('index');
+			redirect('index.php');
 		}
 
 		echo '<h1>Looks good? Resubmit!</h1>';

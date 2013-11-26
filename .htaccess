@@ -1,8 +1,0 @@
-
-RewriteEngine on
-
-# without arguments
-RewriteRule app/([^/]+)$ $1.php
-
-# with arguments
-RewriteRule app/([^/]+)/(.+) $1.php?args=$2
