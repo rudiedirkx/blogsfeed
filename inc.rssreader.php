@@ -10,14 +10,8 @@ class RSSReader {
 		}
 
 		// blog info
-		$blogTitle = self::ternary(
-			(string)$xml->channel->title,
-			(string)$xml->title
-		);
-		$blogUrl = self::ternary(
-			(string)$xml->channel->link,
-			self::fakeLink($xml)
-		);
+		$blogTitle = (string)$xml->channel->title ?: (string)$xml->title;
+		$blogUrl = (string)$xml->channel->link ?: self::fakeLink($xml);
 		$blog = array(
 			'title' => $blogTitle,
 			'url' => $blogUrl,
@@ -36,15 +30,8 @@ class RSSReader {
 		// cycle posts
 		foreach ( $posts AS $blogPost ) {
 			// post info
-			$postUrl = self::ternary(
-				(string)$blogPost->link,
-				self::fakeLink($blogPost)
-			);
-			$postGuid = self::ternary(
-				(string)$blogPost->guid,
-				(string)$blogPost->id,
-				$postUrl
-			);
+			$postUrl = (string)$blogPost->link ?: self::fakeLink($blogPost);
+			$postGuid = (string)$blogPost->guid ?: (string)$blogPost->id ?: $postUrl;
 			$postTitle = (string)$blogPost->title;
 
 			// save post
@@ -64,15 +51,6 @@ class RSSReader {
 			$rel = (string)$link['rel'];
 			if ( !$rel || 'alternate' == $rel ) {
 				return (string)$link['href'];
-			}
-		}
-	}
-
-	function ternary($a, $b) {
-		$args = func_get_args();
-		foreach ( $args AS $arg ) {
-			if ( $arg ) {
-				return $arg;
 			}
 		}
 	}
