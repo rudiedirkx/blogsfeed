@@ -58,7 +58,7 @@ require 'inc.menu.php';
 	<p>If these aren't enough, you can add your own. <?=l('Sign up', 'signup')?>.</p>
 <?endif?>
 
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="//code.jquery.com/jquery-latest.min.js"></script>
 <script src="<?=baseUrl()?>app.js"></script>
 
 
