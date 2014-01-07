@@ -27,9 +27,13 @@ if ( isset($_GET['enable'], $_GET['name'], $blogs[$_GET['enable']]) ) {
 require 'inc.menu.php';
 
 ?>
-<h1>
-	Available blogs
-</h1>
+<style>
+a.enable-feed {
+	font-weight: bold;
+}
+</style>
+
+<h1>Available blogs</h1>
 
 <div class="all-blogs">
 	<ul>
@@ -45,9 +49,9 @@ require 'inc.menu.php';
 				<?endif?>
 				&nbsp;
 				(<?=l('rss', $blog->feed, array('title' => 'Go to feed'))?>)
-				<?if( !$blog->private && !$blog->enabled && $admin ):?>
+				<?if( !$blog->enabled && $admin ):?>
 					&nbsp;
-					(enable: <?=l('click', 'index.php?enable=' . $blog->id . '&name=', array('class' => 'enable-feed'))?>)
+					(<?=l('enable', 'index.php?enable=' . $blog->id . '&name=', array('class' => 'enable-feed'))?>)
 				<?endif?>
 			</li>
 		<?endforeach?>
