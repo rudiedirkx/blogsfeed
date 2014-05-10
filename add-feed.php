@@ -11,12 +11,17 @@ if ( isset($_POST['url']) ) {
 	$feedUrl = $_POST['url'];
 
 	// Parse feed
-	$feed = RSSReader::parse($feedUrl);
+	$feed = RSSReader::parse($feedUrl, $error);
 
 	// Show feed to user
 	if ( empty($_POST['confirm']) ) {
 		echo '<p>This is what I got:</p>';
-		echo '<pre>' . h(print_r($feed, 1)) . '</pre>';
+		if ( $feed ) {
+			echo '<pre>' . h(print_r($feed, 1)) . '</pre>';
+		}
+		else {
+			var_dump($feed, $error);
+		}
 	}
 
 	// May exist already

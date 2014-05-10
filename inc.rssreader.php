@@ -2,10 +2,17 @@
 
 class RSSReader {
 
-	static function parse($feedUrl) {
+	static function parse($feedUrl, &$error = 0) {
 		// get feed
-		$xml = @simplexml_load_file($feedUrl);
+		$context = stream_context_create(array(
+			'http' => array(
+				'user_agent' => 'Blogsfeed 1.0',
+			),
+		));
+		libxml_set_streams_context($context);
+		$xml = simplexml_load_file($feedUrl);
 		if ( !$xml ) {
+			$error = __LINE__;
 			return false;
 		}
 
