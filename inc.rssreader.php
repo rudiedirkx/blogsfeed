@@ -9,11 +9,15 @@ class RSSReader {
 				'user_agent' => 'Blogsfeed 1.0',
 			),
 		));
-		// libxml_set_streams_context($context);
-		// $xml = simplexml_load_file($feedUrl);
-		$xml = simplexml_load_string(trim(file_get_contents($feedUrl, false, $context)));
+		$xml = trim(@file_get_contents($feedUrl, false, $context));
 		if ( !$xml ) {
-			$error = __LINE__;
+			$error = 'download:' . __LINE__;
+			return false;
+		}
+
+		$xml = @simplexml_load_string($xml);
+		if ( !$xml ) {
+			$error = 'xml:' . __LINE__;
 			return false;
 		}
 

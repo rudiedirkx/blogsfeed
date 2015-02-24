@@ -25,27 +25,31 @@ if ( isset($_GET['debug']) ) {
 // PART 1 -- parse feeds for all blogs //
 
 $blogs = Blog::allForCronjob();
-print_r($blogs);
+// print_r($blogs);
 
+$fails = array();
 foreach ( $blogs AS $blog ) {
+echo $blog->name . " (" . $blog->id . ")\n";
 	if ( $debug && !in_array($blog->name, $debug) ) {
+echo "- skip\n\n\n";
 		continue;
 	}
 
 	$feedUrl = $blog->feed;
-	$feed = RSSReader::parse($feedUrl);
+	$error = 0;
+	$feed = RSSReader::parse($feedUrl, $error);
 
 	$update = array('checked' => REQUEST_TIME);
 
-echo '&blog->id: ' . $blog->id . "\n";
-	if ( $feed['posts'] ) {
+	if ( $feed && !$error ) {
+		$new = 0;
 		foreach ( $feed['posts'] AS $feedPost ) {
 			// new post?
 			$post = $db->select('blog_posts', array('guid' => $feedPost['guid']), null, true);
 			if ( $post ) {
 				// old news -- next blog
 				$db->update('blogs', $update, array('id' => $blog->id));
-				continue 2;
+				break;
 			}
 
 			// save post
@@ -57,18 +61,42 @@ echo '&blog->id: ' . $blog->id . "\n";
 				'added' => REQUEST_TIME,
 			);
 			$db->insert('blog_posts', $data);
+			$new++;
 
 			// update blog
 			$update['updated'] = REQUEST_TIME;
 
 		} // foreach posts
+
+		if ( $new ) {
+echo "- " . $new . " new posts\n";
+		}
+		else {
+echo "- old news\n";
+		}
+	}
+	else {
+echo "- read fail!\n";
+		$fails[] = compact('blog', 'error');
 	}
 
 	// save blog update
 	$db->update('blogs', $update, array('id' => $blog->id));
 
+	echo "\n\n";
+
 } // foreach blogs
 
+
+
+// PART 1b -- error notification
+if ( $fails ) {
+	echo "FAILS:\n";
+	print_r($fails);
+	echo "Sending: ";
+	var_dump(mail(ADMIN_MAIL, 'Blogsfeed errors', "Errors occured:\n\n" . print_r($fails, 1), "From: Blogsfeed Cron <cronjob@blogsfeed.com>"));
+	echo "\n\n";
+}
 
 
 

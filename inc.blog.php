@@ -47,7 +47,7 @@ class Blog extends Model {
 	static function allForCronjob() {
 		global $db;
 
-		return $db->select_by_field('blogs', 'id', '(name <> ? OR private <> 0) ORDER BY RAND()', array(''), __CLASS__)->all();
+		return $db->select_by_field('blogs', 'id', '(name <> ? OR private <> 0) ORDER BY id ASC', array(''), __CLASS__)->all();
 	}
 
 }
