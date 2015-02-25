@@ -1,4 +1,9 @@
 
+tr.hilited td,
+tr.hilited th {
+	background-color: #C1E1EC;
+}
+
 input.text, textarea {
 	border: solid 1px green;
 	padding: 3px;
@@ -25,7 +30,7 @@ textarea:invalid,
 	margin: 0 10px;
 }
 .service-menu a {
-	
+
 }
 
 ul .scope {

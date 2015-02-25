@@ -16,13 +16,13 @@ if ( isset($_POST['usr'], $_POST['pwd']) ) {
 		$_SESSION['blogsfeed'] = array(
 			'uid' => $user->id,
 			'ip' => md5($_SERVER['REMOTE_ADDR']),
+			'token' => rand(),
 		);
-		redirect('index.php');
+		return redirect('index.php');
 	}
 
 	user::error("That's not it...");
-
-	redirect();
+	return redirect();
 }
 
 require 'inc.menu.php';

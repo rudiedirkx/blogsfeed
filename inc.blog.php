@@ -19,7 +19,14 @@ class Blog extends Model {
 			$options['params'][] = $uid;
 		}
 
-		$sql = 'SELECT b.*, (name <> ?) AS enabled, u.display_name FROM blogs b LEFT JOIN users u ON (u.id = b.added_by_user_id)' . $where . ' ORDER BY b.title';
+		$sql = '
+			SELECT b.*, (name <> ?) AS activated, u.display_name
+			FROM blogs b
+			LEFT JOIN users u
+				ON (u.id = b.added_by_user_id)
+			' . $where . '
+			ORDER BY b.title
+		';
 		return $db->fetch_by_field($sql, 'id', $options)->all();
 	}
 
@@ -40,14 +47,19 @@ class Blog extends Model {
 			$options['params'][] = $uid;
 		//}
 
-		$sql = 'SELECT *, (name <> ?) AS enabled FROM blogs' . $where . ' ORDER BY title';
+		$sql = '
+			SELECT *, (name <> ?) AS activated
+			FROM blogs
+			' . $where . '
+			ORDER BY title
+		';
 		return $db->fetch_by_field($sql, 'id', $options)->all();
 	}
 
 	static function allForCronjob() {
 		global $db;
 
-		return $db->select_by_field('blogs', 'id', '(name <> ? OR private <> 0) ORDER BY id ASC', array(''), __CLASS__)->all();
+		return $db->select_by_field('blogs', 'id', "enabled = 1 AND (name <> '' OR private <> 0) ORDER BY id ASC", array(), __CLASS__)->all();
 	}
 
 }

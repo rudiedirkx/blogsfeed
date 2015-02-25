@@ -40,10 +40,11 @@ if ( isset($_POST['url']) ) {
 				'private' => (int)!empty($_POST['private']),
 			);
 			$db->insert('blogs', $data);
+			$id = $db->insert_id();
 
 			user::success('Blog added: ' . h($data['title']));
 
-			redirect('index.php');
+			redirect('index.php?blog=' . $id);
 		}
 
 		echo '<h1>Looks good? Resubmit!</h1>';

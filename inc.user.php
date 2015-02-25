@@ -92,6 +92,7 @@ class User extends Model {
 
 				if ( $user ) {
 					define('USER_ID', (int)$user->id);
+					define('CSRF_TOKEN', (string)@$_SESSION['blogsfeed']['token']);
 
 					return true;
 				}
@@ -104,6 +105,10 @@ class User extends Model {
 
 	static function access($zone) {
 		switch ( strtolower($zone) ) {
+			// Session stuff
+			case 'token':
+				return user::logincheck() && CSRF_TOKEN === @$_REQUEST['token'];
+
 			// User stuff
 			case 'logged in':
 				return user::logincheck();
