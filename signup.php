@@ -1,5 +1,7 @@
 <?php
 
+exit("Closed\n");
+
 require 'inc.config.php';
 
 user::check('not logged in');

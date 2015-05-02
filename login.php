@@ -29,13 +29,7 @@ require 'inc.menu.php';
 
 ?>
 <form method="post" action>
-	<p>E-mail address: <input name="usr" value="<?= @$_COOKIE['bf_usr'] ?>" required /></p>
+	<p>E-mail address: <input type="email" name="usr" value="<?= @$_COOKIE['bf_usr'] ?>" required /></p>
 	<p>Password: <input type="password" name="pwd" required /></p>
 	<p><input type="submit" /></p>
 </form>
-
-<p><?=l('Sign up here!', 'signup.php')?></p>
-
-<p>For more info, complaints, issues and the source code: <a href="https://github.com/rudiedirkx/Blogs-feed">https://github.com/rudiedirkx/Blogs-feed</a>.</p>
-
-
