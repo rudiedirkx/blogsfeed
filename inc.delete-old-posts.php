@@ -20,5 +20,3 @@ try {
 catch ( db_exception $ex ) {
 	echo "\n\nEXCEPTION: " . $ex->getMessage() . "\n\n\n";
 }
-
-$db->execute('VACUUM');

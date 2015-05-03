@@ -200,6 +200,8 @@ require 'inc.delete-old-posts.php';
 
 if ( !$debug ) {
 	$db->commit();
+
+	$db->execute('VACUUM');
 }
 
 
