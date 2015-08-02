@@ -42,7 +42,7 @@ echo "- skip\n\n\n";
 
 	if ( $feed && !$error ) {
 		$new = 0;
-		foreach ( $feed['posts'] AS $feedPost ) {
+		foreach ( array_slice($feed['posts'], 0, BLOGSFEED_KEEP_BLOGS) AS $feedPost ) {
 			// new post?
 			$post = $db->select('blog_posts', array('guid' => $feedPost['guid']), null, true);
 			if ( $post ) {
@@ -50,6 +50,8 @@ echo "- skip\n\n\n";
 				$db->update('blogs', $update, array('id' => $blog->id));
 				break;
 			}
+
+echo "- new: " . $feedPost['title'] . "\n";
 
 			// save post
 			$data = array(
