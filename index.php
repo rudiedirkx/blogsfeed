@@ -28,7 +28,7 @@ elseif ( $admin && isset($_POST['blogs'], $_POST['action']) ) {
 	$ids = (array)$_POST['blogs'];
 	switch ($_POST['action']) {
 		case 'enable':
-			$db->update('blogs', array('enabled' => 1), array('id' => $ids));
+			$db->update('blogs', array('enabled' => 1, 'fails' => 0), array('id' => $ids));
 			user::success('Enabled ' . $db->affected_rows() . ' blogs.');
 			break;
 

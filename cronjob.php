@@ -78,6 +78,8 @@ echo "- old news\n";
 	}
 	else {
 echo "- read fail!\n";
+		$blog->fails++;
+		$update['fails'] = $blog->fails;
 		$fails[] = compact('blog', 'error');
 	}
 

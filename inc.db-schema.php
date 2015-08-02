@@ -13,6 +13,7 @@ return array(
 			'added_by_user_id' => array('unsigned' => true, 'default' => 0),
 			'private' => array('unsigned' => true, 'default' => 0),
 			'enabled' => array('unsigned' => true, 'default' => 1),
+			'fails' => array('unsigned' => true, 'default' => 0),
 		),
 		'blog_posts' => array(
 			'id' => array('pk' => true),
