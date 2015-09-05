@@ -114,6 +114,8 @@ $hilited = @$_GET['blog'];
 					<? if ($admin): ?>
 						<? if (!$blog->name): ?>
 							<?= l('activate', 'index.php?activate=' . $blog->id . '&token=' . CSRF_TOKEN . '&name=', array('class' => 'activate-feed')) ?>
+						<? elseif ($blog->fails): ?>
+							<?= $blog->fails ?> fails
 						<? endif ?>
 					<? endif ?>
 				</td>
