@@ -59,6 +59,7 @@ echo "- new: " . $feedPost['title'] . "\n";
 				'guid' => $feedPost['guid'],
 				'title' => $feedPost['title'],
 				'url' => $feedPost['url'],
+				'image' => $feedPost['image'],
 				'added' => REQUEST_TIME,
 			);
 			$db->insert('blog_posts', $data);
@@ -108,23 +109,27 @@ if ( $fails ) {
 // get new posts
 $newPosts = $db->select('blog_posts', 'new = 1 ORDER BY blog_id, id ASC');
 
+// group by blog
+$newPostsByBlog = array();
+foreach ( $newPosts as $post ) {
+	$newPostsByBlog[$post->blog_id][] = $post;
+}
+
 // create HTML per blog
 $postHtmls = array();
-$lastBlog = 0;
-foreach ( $newPosts AS $post ) {
-	$blog = $blogs[$post->blog_id];
-	isset($postHtmls[$blog->id]) or $postHtmls[$blog->id] = array('number' => 0, 'html' => '');
-	$info = &$postHtmls[$blog->id];
+foreach ( $newPostsByBlog AS $blogId => $posts ) {
+	$blog = $blogs[$blogId];
 
-	if ( $lastBlog != $post->blog_id ) {
-		$lastBlog = $post->blog_id;
-		$info['html'] .= "\n\n" . '<h2><a href="' . $blog->url . '">' . $blog->title . '</a></h2>' . "\n\n\n";
-	}
+	$html = call_user_func(function() use ($blog, $posts) {
+		ob_start();
+		include 'tpl.new-posts.php';
+		return ob_get_clean();
+	});
 
-	$info['html'] .= '<h3>- <a href="' . $post->url . '">' . $post->title . '</a></h3>' . "\n\n";
-	$info['number']++;
-
-	unset($info);
+	$postHtmls[$blogId] = array(
+		'number' => count($posts),
+		'html' => $html,
+	);
 }
 
 // cronjob feedback

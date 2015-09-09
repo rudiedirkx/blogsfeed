@@ -21,6 +21,7 @@ return array(
 			'guid',
 			'title',
 			'url',
+			'image',
 			'added' => array('unsigned' => true),
 			'new' => array('unsigned' => true, 'default' => 1),
 		),
