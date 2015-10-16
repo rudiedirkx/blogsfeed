@@ -5,7 +5,7 @@ function formError($error) {
 }
 
 function ul($items) {
-	return '<li>' . implode('</li><li>', $items) . '</li>';
+	return '<ul><li>' . implode('</li><li>', $items) . '</li></ul>';
 }
 
 function attr($attr, $except = array()) {

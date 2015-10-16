@@ -102,7 +102,7 @@ if ( isset($_POST['email'], $_POST['name'], $_POST['password']) ) {
 	user::error("That's not it...");
 }
 
-require 'inc.menu.php';
+require 'tpl.menu.php';
 
 ?>
 <form method="post" action autocomplete="off">

@@ -55,7 +55,7 @@ if ( isset($_POST['url']) ) {
 	}
 }
 
-require 'inc.menu.php';
+require 'tpl.menu.php';
 
 ?>
 <h1>

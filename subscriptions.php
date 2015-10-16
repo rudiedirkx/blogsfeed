@@ -45,7 +45,7 @@ else if ( isset($_GET['export']) ) {
 	exit;
 }
 
-require 'inc.menu.php';
+require 'tpl.menu.php';
 
 ?>
 <h1>

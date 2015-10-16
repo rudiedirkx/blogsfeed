@@ -4,7 +4,7 @@ require 'inc.config.php';
 
 user::check('logged in');
 
-require 'inc.menu.php';
+require 'tpl.menu.php';
 
 $users = User::all();
 

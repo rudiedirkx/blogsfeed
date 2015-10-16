@@ -21,13 +21,14 @@ textarea:invalid,
 .service-menu ul {
 	display: block;
 	list-style: none;
+	padding: 0;
 }
 .service-menu li {
 	display: inline-block;
 }
 .service-menu li + li:before {
 	content: "|";
-	margin: 0 10px;
+	margin: 0 .5em;
 }
 .service-menu a {
 

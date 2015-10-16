@@ -46,7 +46,7 @@ elseif ( $admin && isset($_POST['blogs'], $_POST['action']) ) {
 	return redirect('index.php');
 }
 
-require 'inc.menu.php';
+require 'tpl.menu.php';
 
 // print_r($blogs);
 
@@ -133,10 +133,7 @@ $hilited = @$_GET['blog'];
 </form>
 
 <?if( !user::logincheck() ):?>
-	<p>If these aren't enough, you can add your own. <?=l('Sign up', 'signup')?>.</p>
+	<p>If these aren't enough, you can add your own. <?=l('Sign up', 'signup.php')?>.</p>
 <?endif?>
 
-<script src="//code.jquery.com/jquery-latest.min.js"></script>
 <script src="<?= baseUrl() ?>app.js"></script>
-
-

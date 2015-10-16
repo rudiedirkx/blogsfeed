@@ -1,3 +1,4 @@
+<!doctype html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
 
@@ -19,7 +20,7 @@
 <div class="service-menu">
 <?php
 
-require user::logincheck() ? 'inc.menu-authenticated.php' : 'inc.menu-anonymous.php';
+require user::logincheck() ? 'tpl.menu-authenticated.php' : 'tpl.menu-anonymous.php';
 
 ?>
 </div>

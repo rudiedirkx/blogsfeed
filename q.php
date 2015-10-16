@@ -12,7 +12,7 @@ if ( isset($_POST['q']) ) {
 	exit;
 }
 
-require 'inc.menu.php';
+require 'tpl.menu.php';
 
 ?>
 <h1>

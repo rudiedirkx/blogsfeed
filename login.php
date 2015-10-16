@@ -25,7 +25,7 @@ if ( isset($_POST['usr'], $_POST['pwd']) ) {
 	return redirect();
 }
 
-require 'inc.menu.php';
+require 'tpl.menu.php';
 
 ?>
 <form method="post" action>

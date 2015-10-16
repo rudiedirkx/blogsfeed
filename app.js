@@ -1,16 +1,18 @@
 
-jQuery(function($) {
+window.addEventListener('load', function(e) {
 
-	$('a.activate-feed').on('click', function(e) {
-		e.preventDefault();
+	var links = [].slice.call(document.querySelectorAll('a.activate-feed'));
+	links.forEach(function(link) {
+		link.addEventListener('click', function(e) {
+			e.preventDefault();
 
-		var $this = $(this),
-			url = $this.attr('href'),
-			name = prompt('Blog name..?', '');
+			var url = this.getAttribute('href'),
+				name = prompt('Blog name..?', '');
 
-		if (name) {
-			location = url + name;
-		}
+			if (name) {
+				location = url + encodeURIComponent(name);
+			}
+		});
 	});
 
 });
