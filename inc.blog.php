@@ -8,26 +8,22 @@ class Blog extends Model {
 		$account or $account = $user;
 		$uid = $account ? (int)$account->id : -1;
 
-		$options = array(
-			'class' => __CLASS__,
-			'params' => array(''),
-		);
-
-		$where = '';
+		$where = array('1');
 		if ( !user::access('admin feeds') ) {
-			$where = ' WHERE (private = 0 OR added_by_user_id = ?)';
-			$options['params'][] = $uid;
+			$where[] = $db->replaceholders('(b.private = 0 OR b.added_by_user_id = ?)', array($uid));
+		}
+		if ( !user::access('admin feeds') ) {
+			$where[] = 'b.enabled = 1';
 		}
 
-		$sql = '
-			SELECT b.*, (name <> ?) AS activated, u.display_name
+		$sql = "
+			SELECT b.*, (b.name <> '') AS activated, u.display_name
 			FROM blogs b
-			LEFT JOIN users u
-				ON (u.id = b.added_by_user_id)
-			' . $where . '
+			LEFT JOIN users u ON (u.id = b.added_by_user_id)
+			WHERE " . implode(' AND ', $where) . "
 			ORDER BY b.title
-		';
-		return $db->fetch_by_field($sql, 'id', $options)->all();
+		";
+		return $db->fetch_by_field($sql, 'id', array('class' => __CLASS__))->all();
 	}
 
 	static function all($account = null) {
