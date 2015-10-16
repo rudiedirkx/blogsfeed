@@ -2,22 +2,30 @@
 
 class RSSReader {
 
-	static function parse( $feedUrl, &$error = 0 ) {
+	static function parse( $feedUrl, &$error = null ) {
 		// get feed
 		$context = stream_context_create(array(
 			'http' => array(
 				'user_agent' => 'Blogsfeed 1.0',
 			),
 		));
-		$xml = trim(@file_get_contents($feedUrl, false, $context));
-		if ( !$xml ) {
-			$error = 'download:' . __LINE__;
+		$text = trim(@file_get_contents($feedUrl, false, $context));
+		if ( !$text ) {
+			$error = array(
+				'error' => 'download:' . __LINE__,
+			);
 			return false;
 		}
 
-		$xml = @simplexml_load_string($xml);
+		libxml_use_internal_errors(true);
+		$xml = @simplexml_load_string($text);
 		if ( !$xml ) {
-			$error = 'xml:' . __LINE__;
+			$errors = libxml_get_errors();
+			$error = array(
+				'error' => 'xml:' . __LINE__,
+				'response' => substr($text, 0, 80),
+				'xmlerrors' => $errors,
+			);
 			return false;
 		}
 

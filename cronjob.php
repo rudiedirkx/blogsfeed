@@ -35,7 +35,7 @@ echo "- skip\n\n\n";
 	}
 
 	$feedUrl = $blog->feed;
-	$error = 0;
+	$error = null;
 	$feed = RSSReader::parse($feedUrl, $error);
 
 	$update = array('checked' => REQUEST_TIME);
