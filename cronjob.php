@@ -41,6 +41,8 @@ echo "- skip\n\n\n";
 	$update = array('checked' => REQUEST_TIME);
 
 	if ( $feed && !$error ) {
+		$update['fails'] = $blog->fails = 0;
+
 		$new = 0;
 		foreach ( array_slice($feed['posts'], 0, BLOGSFEED_KEEP_BLOGS) AS $feedPost ) {
 			// new post?
