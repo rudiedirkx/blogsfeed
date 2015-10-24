@@ -7,7 +7,7 @@ define('REQUEST_TIME', time());
 
 header('Content-type: text/html; charset=utf-8');
 
-define('BLOGSFEED_KEEP_BLOGS', 20);
+define('BLOGSFEED_KEEP_BLOGS', 50);
 
 // prerequisites
 require WHERE_DB_GENERIC_AT . '/db_sqlite.php';
