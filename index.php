@@ -119,6 +119,9 @@ $hilited = @$_GET['blog'];
 						<? endif ?>
 					<? endif ?>
 				</td>
+				<td>
+					<?= l('preview', 'preview.php?blog=' . $blog->id) ?>
+				</td>
 			</tr>
 		<? endforeach ?>
 	</table>

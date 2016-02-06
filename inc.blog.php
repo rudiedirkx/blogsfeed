@@ -2,6 +2,14 @@
 
 class Blog extends Model {
 
+	static function one( $id ) {
+		global $db;
+
+		if ( $id ) {
+			return $db->select('blogs', compact('id'), 'Blog')->first();
+		}
+	}
+
 	static function allWithCreator($account = null) {
 		global $db, $user;
 

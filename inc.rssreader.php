@@ -58,6 +58,7 @@ class RSSReader {
 			$postGuid = (string)$blogPost->guid ?: (string)$blogPost->id ?: $postUrl;
 			$postTitle = (string)$blogPost->title;
 			$postImage = self::imageFromEnclosure($blogPost) ?: self::imageFromImage($blogPost) ?: self::imageFromDescription($blogPost) ?: self::imageFromContent($blogPost) ?: '';
+			$pubDate = (string)$blogPost->pubDate;
 
 			if ( $postImage && $postImage[0] == '/' ) {
 				$_url = parse_url($postUrl);
@@ -70,6 +71,7 @@ class RSSReader {
 				'title' => $postTitle,
 				'url' => $postUrl,
 				'image' => $postImage,
+				'pubdate' => $pubDate ? strtotime($pubDate) : 0,
 			);
 			$blog['posts'][] = $data;
 		}

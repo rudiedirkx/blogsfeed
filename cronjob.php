@@ -62,6 +62,7 @@ echo "- new: " . $feedPost['title'] . "\n";
 				'title' => $feedPost['title'],
 				'url' => $feedPost['url'],
 				'image' => $feedPost['image'],
+				'pubdate' => $feedPost['pubdate'],
 				'added' => REQUEST_TIME,
 			);
 			$db->insert('blog_posts', $data);

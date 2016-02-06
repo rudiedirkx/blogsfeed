@@ -24,6 +24,7 @@ return array(
 			'image',
 			'added' => array('unsigned' => true),
 			'new' => array('unsigned' => true, 'default' => 1),
+			'pubdate' => array('unsigned' => true, 'default' => 0),
 		),
 		'users' => array(
 			'id' => array('pk' => true),
