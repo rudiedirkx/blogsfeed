@@ -12,7 +12,7 @@
 				<? endif ?>
 			</td>
 			<td>
-				<a href="<?= h($post->url) ?>"><?= h($post->title) ?></a>
+				<a href="<?= h($post->url) ?>"><?= nl2br(h(trim($post->title))) ?></a>
 			</td>
 		</tr>
 	<? endforeach ?>
