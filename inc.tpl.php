@@ -1,5 +1,36 @@
 <?php
 
+function postTitleToHtml($post) {
+	// HTML-ize
+	$html = nl2br(h(trim($post->title)));
+
+	// Insert inner links
+	$html = preg_replace('#(https?://[^\s<]+)#', '</a><a href="$1">$1</a><a href="' . h($post->url) . '">', $html);
+
+	// Wrap with outer link
+	$html = '<a href="' . h($post->url) . '">' . $html . '</a>';
+
+	// Remove empty links
+	$html = preg_replace_callback('#<a[\s\S]+?>([\s\S]*?)</a>#', function($match) {
+		list($match, $label) = $match;
+
+		// No contents
+		if (!trim($label)) {
+			return $label;
+		}
+
+		// Only newlines
+		if (preg_match('#^(<br />\s*)+$#', trim($label))) {
+			return $label;
+		}
+
+		// Valid contents
+		return $match;
+	}, $html);
+
+	return $html;
+}
+
 function formError($error) {
 	return $error ? 'error' : 'valid';
 }
