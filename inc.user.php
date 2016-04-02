@@ -140,8 +140,8 @@ class User extends Model {
 		}
 	}
 
-	static function check($zones) {
-		foreach ( (array)$zones AS $zone ) {
+	static function check( $zones, $exit = true ) {
+		foreach ( (array) $zones AS $zone ) {
 			if ( !user::access($zone) ) {
 				$prefix = $postfix = '';
 
@@ -151,9 +151,15 @@ class User extends Model {
 					$postfix = ' ' . l('Do it here!', 'login.php');
 				}
 
-				exit($prefix . 'Access denied (' . $zone . ').' . $postfix);
+				if ($exit) {
+					exit($prefix . 'Access denied (' . $zone . ').' . $postfix);
+				}
+
+				return false;
 			}
 		}
+
+		return true;
 	}
 
 }
