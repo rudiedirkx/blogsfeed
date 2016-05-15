@@ -19,15 +19,20 @@ echo '<p><code>' . round($_download * 1000) . ' ms</code> to download &amp parse
 
 $_time = microtime(1);
 
-$posts = array_map(function($post) {
-	return (object) $post;
-}, $feed['posts']);
+if ( $feed === false ) {
+	$html = '<pre>' . h(print_r($error, 1)) . '</pre>';
+}
+else {
+	$posts = array_map(function($post) {
+		return (object) $post;
+	}, $feed['posts']);
 
-$html = call_user_func(function() use ($blog, $posts) {
-	ob_start();
-	include 'tpl.new-posts.php';
-	return ob_get_clean();
-});
+	$html = call_user_func(function() use ($blog, $posts) {
+		ob_start();
+		include 'tpl.new-posts.php';
+		return ob_get_clean();
+	});
+}
 
 echo $html;
 
