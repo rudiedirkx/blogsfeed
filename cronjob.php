@@ -181,7 +181,7 @@ foreach ( $userHtmls AS $userId => $info ) {
 	$html = trim($info['html']);
 
 	if ( $html ) {
-		$recipient = $info['email'];
+		$recipient = $info['send_to_email'] ?: $info['email'];
 		$subject = 'New blog posts from feed (' . $info['posts'] . ')';
 
 		$headers = array(

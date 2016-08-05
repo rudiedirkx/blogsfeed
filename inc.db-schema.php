@@ -29,6 +29,7 @@ return array(
 		'users' => array(
 			'id' => array('pk' => true),
 			'email',
+			'send_to_email',
 			'password',
 			'enabled' => array('unsigned' => true, 'default' => 1),
 			'display_name',
