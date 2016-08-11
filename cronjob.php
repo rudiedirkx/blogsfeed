@@ -155,7 +155,7 @@ foreach ( $subscriptions AS $sub ) {
 	if ( $lastUser != $sub->user_id ) {
 		$lastUser = $sub->user_id;
 		$userHtmls[$lastUser] = array(
-			'email' => $sub->display_name . ' <' . $sub->email . '>',
+			'email' => $sub->display_name . ' <' . ($sub->send_to_email ?: $sub->email) . '>',
 			'html' => '',
 			'posts' => 0,
 		);
@@ -181,7 +181,7 @@ foreach ( $userHtmls AS $userId => $info ) {
 	$html = trim($info['html']);
 
 	if ( $html ) {
-		$recipient = $info['send_to_email'] ?: $info['email'];
+		$recipient = $info['email'];
 		$subject = 'New blog posts from feed (' . $info['posts'] . ')';
 
 		$headers = array(
