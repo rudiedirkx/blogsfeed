@@ -24,7 +24,7 @@ class RSSReader {
 			$error = array(
 				'error' => 'xml:' . __LINE__,
 				'response' => substr($text, 0, 80),
-				'xmlerrors' => $errors,
+				'xmlerrors' => array_slice($errors, 0, 1),
 			);
 			return false;
 		}
