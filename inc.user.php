@@ -79,6 +79,7 @@ class User extends Model {
 			return true;
 		}
 
+		ini_set('session.cookie_lifetime', 99999999);
 		session_id() or session_start();
 
 		if ( isset($_SESSION['blogsfeed']['uid'], $_SESSION['blogsfeed']['ip']) ) {
