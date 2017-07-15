@@ -101,6 +101,7 @@ $hilited = @$_GET['blog'];
 				<? endif ?>
 				<td>
 					<?= l($blog->title, $blog->url, array('class' => 'blog')) ?>
+					(<?= h($blog->name) ?>)
 				</td>
 				<td>
 					<? if ($blog->added_by_user_id): ?>
