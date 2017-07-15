@@ -3,6 +3,7 @@
 require 'inc.config.php';
 
 user::check('add feed');
+$admin = user::access('admin feeds');
 
 $feedUrl = '';
 $feedExists = false;
@@ -39,8 +40,18 @@ if ( isset($_POST['url']) ) {
 				'added_by_user_id' => USER_ID,
 				'private' => (int)!empty($_POST['private']),
 			);
+			if ( $admin && !empty($_POST['name']) ) {
+				$data['name'] = $_POST['name'];
+			}
 			$db->insert('blogs', $data);
 			$id = $db->insert_id();
+
+			if ( !empty($data['name']) ) {
+				$db->insert('subscriptions', array(
+					'user_id' => $user->id,
+					'blog_id' => $id,
+				));
+			}
 
 			user::success('Blog added: ' . h($data['title']));
 
@@ -62,9 +73,12 @@ require 'tpl.menu.php';
 	Add feed
 </h1>
 
-<form method="post" action>
+<form method="post" action autocomplete="off">
 	<p>Feed URL: <input type="url" name="url" value="<?=h($feedUrl ?: $_GET['url'])?>" autofocus required /></p>
 	<?if( $feedUrl && !$feedExists ):?>
+		<?if( $admin ):?>
+			<p>Machine name: <input name="name" /> (auto activate &amp; enable)</p>
+		<?endif?>
 		<p><label><input type="checkbox" name="confirm" checked /> Yup, that's the one. Save it!</label></p>
 		<p><label><input type="checkbox" name="private" /> This is a <strong>private</strong> feed. (I won't tell.)</label></p>
 	<?endif?>
