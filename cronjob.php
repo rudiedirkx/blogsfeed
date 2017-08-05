@@ -96,17 +96,6 @@ echo "- read fail!\n";
 
 
 
-// PART 1b -- error notification
-if ( $fails ) {
-	echo "FAILS:\n";
-	print_r($fails);
-	echo "Sending: ";
-	var_dump(mail(ADMIN_MAIL, 'Blogsfeed errors', "Errors occured:\n\n" . print_r($fails, 1), "From: Blogsfeed Cron <cronjob@blogsfeed.com>"));
-	echo "\n\n";
-}
-
-
-
 // PART 2 -- create HTML from new posts //
 
 // get new posts
