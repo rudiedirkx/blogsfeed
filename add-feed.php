@@ -74,7 +74,7 @@ require 'tpl.menu.php';
 </h1>
 
 <form method="post" action autocomplete="off">
-	<p>Feed URL: <input type="url" name="url" value="<?=h($feedUrl ?: $_GET['url'])?>" autofocus required /></p>
+	<p>Feed URL: <input type="url" name="url" value="<?=h($feedUrl ?: @$_GET['url'])?>" autofocus required /></p>
 	<?if( $feedUrl && !$feedExists ):?>
 		<?if( $admin ):?>
 			<p>Machine name: <input name="name" /> (auto activate &amp; enable)</p>
