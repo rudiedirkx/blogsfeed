@@ -62,7 +62,7 @@ require 'tpl.menu.php';
 				<? $active = in_array($blog->id, $subscriptions); ?>
 				<li class="<?=$active ? 'active' : 'inactive'?>">
 					<label>
-						<input type="checkbox" <?if( $blog->enabled ):?>name="feeds[]" value="<?=$blog->id?>"<?else:?>disabled<?endif?> <?if( $active ):?>checked<?endif?>/>
+						<input type="checkbox" <?if( $blog->enabled || $active ):?>name="feeds[]" value="<?=$blog->id?>"<?else:?>disabled<?endif?> <?if( $active ):?>checked<?endif?>/>
 						<span>
 							<?if( $blog->private ):?>
 								<span class="scope">PRIVATE:</span>
