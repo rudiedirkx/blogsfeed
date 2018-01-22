@@ -125,9 +125,9 @@ foreach ( $newPostsByBlog AS $blogId => $posts ) {
 }
 
 // cronjob feedback
-echo '&postHtmls:' . "\n";
-print_r($postHtmls);
-echo "\n\n";
+// echo '&postHtmls:' . "\n";
+// print_r($postHtmls);
+// echo "\n\n";
 
 
 
@@ -161,9 +161,9 @@ foreach ( $subscriptions AS $sub ) {
 }
 
 // cronjob feedback
-echo '&userHtmls:' . "\n";
-print_r($userHtmls);
-echo "\n\n";
+// echo '&userHtmls:' . "\n";
+// print_r($userHtmls);
+// echo "\n\n";
 
 // send e-mail
 foreach ( $userHtmls AS $userId => $info ) {
