@@ -168,16 +168,24 @@ foreach ( $subscriptions AS $sub ) {
 // send e-mail
 foreach ( $userHtmls AS $userId => $info ) {
 	$html = trim($info['html']);
+	$subject = 'New blog posts from feed (' . $info['posts'] . ')';
+	$recipient = $info['email'];
+	echo "$recipient - $subject\n";
 
 	if ( $html ) {
-		$recipient = $info['email'];
-		$subject = 'New blog posts from feed (' . $info['posts'] . ')';
-
 		$headers = array(
 			'From: Blogs feed <blogsfeed@hoblox.nl>',
 			'Content-type: text/html; charset=utf-8',
 		);
 		if ( !$debug ) {
+			echo "sent: ";
+			var_dump(mail($recipient, $subject, $html, implode("\r\n", $headers) . "\r\n"));
+		}
+	}
+	else {
+		if ( !$debug ) {
+			echo "sent: ";
+			$html = 'No new posts...';
 			var_dump(mail($recipient, $subject, $html, implode("\r\n", $headers) . "\r\n"));
 		}
 	}
@@ -190,6 +198,7 @@ foreach ( $userHtmls AS $userId => $info ) {
 
 // update index
 $db->update('blog_posts', 'new = 0', '1');
+echo "update new=0: ";
 var_dump($db->affected_rows());
 
 // delete old blog posts

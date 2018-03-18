@@ -14,7 +14,7 @@ try {
 
 			// delete from this blog what's older than $boundary
 			$db->delete('blog_posts', 'blog_id = ? AND id < ?', array($blogId, $boundary));
-var_dump($db->affected_rows());
+// var_dump($db->affected_rows());
 		}
 // echo "\n";
 	}
