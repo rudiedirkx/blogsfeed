@@ -1,8 +1,8 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
-user::check('not logged in');
+User::check('not logged in');
 
 if ( isset($_POST['usr'], $_POST['pwd']) ) {
 	setcookie('bf_usr', $_POST['usr']);
@@ -21,7 +21,7 @@ if ( isset($_POST['usr'], $_POST['pwd']) ) {
 		return redirect('index.php');
 	}
 
-	user::error("That's not it...");
+	User::error("That's not it...");
 	return redirect();
 }
 

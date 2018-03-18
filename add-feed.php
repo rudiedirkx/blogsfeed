@@ -1,9 +1,9 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
-user::check('add feed');
-$admin = user::access('admin feeds');
+User::check('add feed');
+$admin = User::access('admin feeds');
 
 $feedUrl = '';
 $feedExists = false;
@@ -53,7 +53,7 @@ if ( isset($_POST['url']) ) {
 				));
 			}
 
-			user::success('Blog added: ' . h($data['title']));
+			User::success('Blog added: ' . h($data['title']));
 
 			redirect('index.php?blog=' . $id);
 		}

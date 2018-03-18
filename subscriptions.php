@@ -1,8 +1,8 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
-user::check('logged in');
+User::check('logged in');
 
 require 'inc.account.php';
 
@@ -27,7 +27,7 @@ if ( isset($_POST['feeds']) ) {
 	}
 	$db->commit();
 
-	user::success('Subscriptions saved!');
+	User::success('Subscriptions saved!');
 
 	redirect();
 }

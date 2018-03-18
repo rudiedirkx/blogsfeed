@@ -1,6 +1,6 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
 if ( !isset($_GET['callback']) ) {
 	header('Content-type: text/plain');
@@ -17,7 +17,7 @@ if ( !isset($_GET['feed']) ) {
 	$exit('need feed');
 }
 
-if ( !user::check('logged in', false) ) {
+if ( !User::check('logged in', false) ) {
 	$exit('not logged in');
 }
 

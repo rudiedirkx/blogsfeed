@@ -1,10 +1,10 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
 header('Content-type: text/plain; charset=utf-8');
 
-user::check('admin feeds');
+User::check('admin feeds');
 
 // delete blogs
 $db->delete('blogs', '1');

@@ -108,42 +108,42 @@ class User extends Model {
 		switch ( strtolower($zone) ) {
 			// Session stuff
 			case 'token':
-				return user::logincheck() && CSRF_TOKEN === @$_REQUEST['token'];
+				return User::logincheck() && CSRF_TOKEN === @$_REQUEST['token'];
 
 			// User stuff
 			case 'logged in':
-				return user::logincheck();
+				return User::logincheck();
 
 			case 'not logged in':
-				return !user::logincheck();
+				return !User::logincheck();
 
 			case 'log in':
-				return !user::logincheck();
+				return !User::logincheck();
 
 			case 'log out':
-				return user::logincheck();
+				return User::logincheck();
 
 			case 'add feed':
-				return user::logincheck();
+				return User::logincheck();
 
 			// Admin stuff
 			case 'admin users':
-				return user::logincheck() && USER_ID == 1;
+				return User::logincheck() && USER_ID == 1;
 
 			case 'admin feeds':
-				return user::logincheck() && USER_ID == 1;
+				return User::logincheck() && USER_ID == 1;
 
 			case 'admin subscriptions':
-				return user::logincheck() && USER_ID == 1;
+				return User::logincheck() && USER_ID == 1;
 
 			case 'exec queries':
-				return user::logincheck() && USER_ID == 1;
+				return User::logincheck() && USER_ID == 1;
 		}
 	}
 
 	static function check( $zones, $exit = true ) {
 		foreach ( (array) $zones AS $zone ) {
-			if ( !user::access($zone) ) {
+			if ( !User::access($zone) ) {
 				$prefix = $postfix = '';
 
 				$prefix = '<meta name="viewport" content="width=device-width">';

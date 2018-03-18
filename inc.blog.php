@@ -17,10 +17,10 @@ class Blog extends Model {
 		$uid = $account ? (int)$account->id : -1;
 
 		$where = array('1');
-		if ( !user::access('admin feeds') ) {
+		if ( !User::access('admin feeds') ) {
 			$where[] = $db->replaceholders('(b.private = 0 OR b.added_by_user_id = ?)', array($uid));
 		}
-		if ( !user::access('admin feeds') ) {
+		if ( !User::access('admin feeds') ) {
 			$where[] = 'b.enabled = 1';
 		}
 
@@ -46,7 +46,7 @@ class Blog extends Model {
 		);
 
 		$where = '';
-		//if ( !user::access('admin feeds') ) {
+		//if ( !User::access('admin feeds') ) {
 			$where = ' WHERE (private = 0 OR added_by_user_id = ?)';
 			$options['params'][] = $uid;
 		//}

@@ -1,8 +1,8 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
-$admin = user::access('admin feeds');
+$admin = User::access('admin feeds');
 
 $blogs = Blog::allWithCreator();
 
@@ -17,7 +17,7 @@ if ( $admin && isset($_GET['activate'], $_GET['name'], $blogs[$_GET['activate']]
 			'id' => $blog->id,
 		));
 
-		user::success('Activated blog # ' . $blog->id . '.');
+		User::success('Activated blog # ' . $blog->id . '.');
 		return redirect('index.php?blog=' . $blog->id);
 	}
 }
@@ -29,17 +29,17 @@ elseif ( $admin && isset($_POST['blogs'], $_POST['action']) ) {
 	switch ($_POST['action']) {
 		case 'enable':
 			$db->update('blogs', array('enabled' => 1, 'fails' => 0), array('id' => $ids));
-			user::success('Enabled ' . $db->affected_rows() . ' blogs.');
+			User::success('Enabled ' . $db->affected_rows() . ' blogs.');
 			break;
 
 		case 'disable':
 			$db->update('blogs', array('enabled' => 0), array('id' => $ids));
-			user::success('Disabled ' . $db->affected_rows() . ' blogs.');
+			User::success('Disabled ' . $db->affected_rows() . ' blogs.');
 			break;
 
 		case 'delete':
 			$db->delete('blogs', array('id' => $ids));
-			user::success('Deleted ' . $db->affected_rows() . ' blogs.');
+			User::success('Deleted ' . $db->affected_rows() . ' blogs.');
 			break;
 	}
 
@@ -135,9 +135,5 @@ $hilited = @$_GET['blog'];
 		</p>
 	<? endif ?>
 </form>
-
-<?if( !user::logincheck() ):?>
-	<p>If these aren't enough, you can add your own. <?=l('Sign up', 'signup.php')?>.</p>
-<?endif?>
 
 <script src="<?= baseUrl() ?>app.js"></script>

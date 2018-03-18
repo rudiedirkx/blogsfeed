@@ -1,8 +1,8 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
-user::check('logged in');
+User::check('logged in');
 
 require 'tpl.menu.php';
 

@@ -1,6 +1,6 @@
 <?php
 
-require __DIR__ . '/inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
 header('Content-type: text/plain; charset=utf-8');
 set_time_limit(0);

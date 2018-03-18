@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="<?=baseUrl()?>base.css" />
 <link rel="shortcut icon" href="<?=baseUrl()?>favicon.ico" type="image/x-icon">
 
-<?if( $messages = user::messages() ):?>
+<?if( $messages = User::messages() ):?>
 	<div class="messages">
 		<ul>
 			<?foreach( $messages AS $msg ):?>
@@ -20,7 +20,7 @@
 <div class="service-menu">
 <?php
 
-require user::logincheck() ? 'tpl.menu-authenticated.php' : 'tpl.menu-anonymous.php';
+require User::logincheck() ? 'tpl.menu-authenticated.php' : 'tpl.menu-anonymous.php';
 
 ?>
 </div>

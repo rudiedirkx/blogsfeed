@@ -1,0 +1,21 @@
+{
+    "name": "rdx/blogsfeed",
+    "type": "project",
+    "require": {
+        "rdx/db": "^1.4"
+    },
+    "autoload": {
+        "classmap": [
+            "."
+        ],
+        "exclude-from-classmap": ["/vendor/"],
+        "files": ["inc.tpl.php"]
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rudie Dirkx",
+            "email": "github@hotblocks.nl"
+        }
+    ]
+}

@@ -2,8 +2,8 @@
 
 $account = null;
 if ( isset($_GET['account']) ) {
-	if ( user::access('admin subscriptions') ) {
-		$account = user::get($_GET['account']);
+	if ( User::access('admin subscriptions') ) {
+		$account = User::get($_GET['account']);
 	}
 }
 $account or $account = $user;

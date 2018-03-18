@@ -1,10 +1,10 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
-user::check('logged in');
+User::check('logged in');
 
-$account = isset($args[0]) ? user::get($args[0]) : false;
+$account = isset($args[0]) ? User::get($args[0]) : false;
 
 require 'tpl.menu.php';
 

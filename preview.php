@@ -1,6 +1,6 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
 $blog = Blog::one(@$_GET['blog']);
 if ( !$blog ) {

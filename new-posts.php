@@ -1,6 +1,6 @@
 <?php
 
-require 'inc.config.php';
+require __DIR__ . '/inc.bootstrap.php';
 
 $blogs = Blog::allForCronjob();
 
