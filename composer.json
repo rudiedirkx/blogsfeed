@@ -6,9 +6,8 @@
     },
     "autoload": {
         "classmap": [
-            "."
+            "src/"
         ],
-        "exclude-from-classmap": ["/vendor/"],
         "files": ["inc.tpl.php"]
     },
     "license": "MIT",
