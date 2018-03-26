@@ -61,24 +61,12 @@ foreach ($blogs as $blog) {
 $hilited = @$_GET['blog'];
 
 ?>
-<style>
-.all-blogs table {
-	border-spacing: 3px;
-	border: solid 1px #ddd;
-}
-.all-blogs td,
-.all-blogs th {
-	background-color: #eee;
-	padding: 4px 8px;
-}
-</style>
-
 <h1>Available blogs</h1>
 
 <form method="post" action class="all-blogs">
 	<input type="hidden" name="token" value="<?= CSRF_TOKEN ?>" />
 
-	<table>
+	<table class="table">
 		<? foreach ($blogs AS $blog): ?>
 			<tr class="<?= $blog->enabled && $blog->name ? 'enabled' : 'disabled' ?> <?= $blog->id == $hilited ? 'hilited' : '' ?>">
 				<? if ($admin): ?>

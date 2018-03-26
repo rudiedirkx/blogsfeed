@@ -16,6 +16,8 @@ if ( !$db ) {
 	exit('No database connecto...');
 }
 
+db_generic_model::$_db = $db;
+
 // db schema
 $db->ensureSchema(require 'inc.db-schema.php', function(array $changes) use ($db) {
 	if ( isset($changes['columns']['blog_posts']['sent']) ) {

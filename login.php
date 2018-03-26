@@ -7,7 +7,7 @@ User::check('not logged in');
 if ( isset($_POST['usr'], $_POST['pwd']) ) {
 	setcookie('bf_usr', $_POST['usr']);
 
-	$user = User::get(array(
+	$user = User::first(array(
 		'email' => $_POST['usr'],
 		'password' => sha1($_POST['pwd']),
 		'enabled' => 1,

@@ -2,7 +2,7 @@
 
 require __DIR__ . '/inc.bootstrap.php';
 
-$blog = Blog::one(@$_GET['blog']);
+$blog = Blog::find(@$_GET['blog']);
 if ( !$blog ) {
 	exit("No blog found.\n");
 }
@@ -27,11 +27,7 @@ else {
 		return (object) $post;
 	}, $feed['posts']);
 
-	$html = call_user_func(function() use ($blog, $posts) {
-		ob_start();
-		include 'tpl.new-posts.php';
-		return ob_get_clean();
-	});
+	$html = $blog->renderPosts($posts);
 }
 
 echo $html;

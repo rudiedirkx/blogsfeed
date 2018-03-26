@@ -4,11 +4,7 @@ $user = false;
 
 class User extends Model {
 
-	function __construct() {
-		if ( isset($this->id) ) {
-			$this->id = (int)$this->id;
-		}
-	}
+	static public $_table = 'users';
 
 	function getSubscriptions() {
 		global $db;
@@ -20,12 +16,6 @@ class User extends Model {
 		return (string)$this->display_name;
 	}
 
-
-	static function all() {
-		global $db;
-
-		return $db->select('users', 1, null, __CLASS__);
-	}
 
 	static function messages($clear = true) {
 		$messages = (array)@$_SESSION['blogsfeed']['messages'];
@@ -62,18 +52,6 @@ class User extends Model {
 		);
 	}
 
-	static function get($conditions) {
-		if ( !is_array($conditions) ) {
-			$conditions = array('id' => (int)$conditions);
-		}
-
-		global $db;
-		return $db->select('users', $conditions, null, array(
-			'class' => __CLASS__,
-			'first' => true,
-		));
-	}
-
 	static function logincheck() {
 		if ( defined('USER_ID') ) {
 			return true;
@@ -86,7 +64,7 @@ class User extends Model {
 			if ( $_SESSION['blogsfeed']['ip'] == md5($_SERVER['REMOTE_ADDR']) ) {
 				global $user;
 
-				$user = User::get(array(
+				$user = User::first(array(
 					'id' => (int)$_SESSION['blogsfeed']['uid'],
 					'enabled' => 1,
 				));
@@ -164,5 +142,3 @@ class User extends Model {
 	}
 
 }
-
-

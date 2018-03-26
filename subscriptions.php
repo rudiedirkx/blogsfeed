@@ -6,7 +6,7 @@ User::check('logged in');
 
 require 'inc.account.php';
 
-$blogs = Blog::all($account);
+$blogs = Blog::allForUser($account);
 
 $subscriptions = $db->select_fields('subscriptions', 'blog_id', array('user_id' => $account->id));
 

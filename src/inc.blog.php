@@ -2,12 +2,14 @@
 
 class Blog extends Model {
 
-	static function one( $id ) {
-		global $db;
+	static public $_table = 'blogs';
 
-		if ( $id ) {
-			return $db->select('blogs', compact('id'), 'Blog')->first();
-		}
+	function renderPosts( array $posts ) {
+		$blog = $this;
+
+		ob_start();
+		include 'tpl.new-posts.php';
+		return ob_get_clean();
 	}
 
 	static function allWithCreator($account = null) {
@@ -34,11 +36,10 @@ class Blog extends Model {
 		return $db->fetch_by_field($sql, 'id', array('class' => __CLASS__))->all();
 	}
 
-	static function all($account = null) {
-		global $db, $user;
+	static function allForUser($account) {
+		global $db;
 
-		$account or $account = $user;
-		$uid = $account ? (int)$account->id : -1;
+		$uid = $account->id;
 
 		$options = array(
 			'class' => __CLASS__,

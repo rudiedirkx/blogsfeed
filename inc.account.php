@@ -3,7 +3,7 @@
 $account = null;
 if ( isset($_GET['account']) ) {
 	if ( User::access('admin subscriptions') ) {
-		$account = User::get($_GET['account']);
+		$account = User::find($_GET['account']);
 	}
 }
 $account or $account = $user;
