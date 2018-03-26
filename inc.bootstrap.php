@@ -17,4 +17,9 @@ if ( !$db ) {
 }
 
 // db schema
-$db->ensureSchema(require 'inc.db-schema.php');
+$db->ensureSchema(require 'inc.db-schema.php', function(array $changes) use ($db) {
+	if ( isset($changes['columns']['blog_posts']['sent']) ) {
+		$db->update('blog_posts', ['sent' => 1], '1');
+		$db->affected_rows();
+	}
+});

@@ -189,8 +189,9 @@ foreach ( $userHtmls AS $userId => $info ) {
 // PART 4 -- clean up //
 
 // update index
-$db->update('blog_posts', 'new = 0', 'new <> 0');
-echo "update new=0: ";
+$time = REQUEST_TIME;
+$db->update('blog_posts', "new = 0, sent = $time", 'new = 1');
+echo "update new=0, sent=$time: ";
 var_dump($db->affected_rows());
 
 // delete old blog posts
