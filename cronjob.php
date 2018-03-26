@@ -182,22 +182,14 @@ foreach ( $userHtmls AS $userId => $info ) {
 			var_dump(mail($recipient, $subject, $html, implode("\r\n", $headers) . "\r\n"));
 		}
 	}
-	else {
-		if ( !$debug ) {
-			echo "sent: ";
-			$html = 'No new posts...';
-			var_dump(mail($recipient, $subject, $html, implode("\r\n", $headers) . "\r\n"));
-		}
-	}
 }
-
 
 
 
 // PART 4 -- clean up //
 
 // update index
-$db->update('blog_posts', 'new = 0', '1');
+$db->update('blog_posts', 'new = 0', 'new <> 0');
 echo "update new=0: ";
 var_dump($db->affected_rows());
 
