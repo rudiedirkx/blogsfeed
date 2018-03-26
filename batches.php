@@ -21,7 +21,7 @@ $batches = $db->select_fields('blog_posts', 'sent, count(1)', '1 group by sent o
 	<tbody>
 		<? foreach ($batches as $batch => $posts): ?>
 			<tr>
-				<td><?= date('Y-m-d', $batch) ?></td>
+				<td><?= date('Y-m-d H:i', $batch) ?></td>
 				<td><a href="batch.php?id=<?= $batch ?>"><?= $posts ?></a></td>
 			</tr>
 		<? endforeach ?>
