@@ -64,7 +64,12 @@ class Blog extends Model {
 	static function allForCronjob() {
 		global $db;
 
-		return $db->select_by_field('blogs', 'id', "enabled = 1 AND (name <> '' OR private <> 0) ORDER BY title ASC", array(), __CLASS__)->all();
+		return $db->select_by_field('blogs', 'id', "
+			enabled = 1 AND
+			(name <> '' OR private <> 0) AND
+			id IN (SELECT blog_id FROM subscriptions)
+			ORDER BY title ASC
+		", array(), __CLASS__)->all();
 	}
 
 }
