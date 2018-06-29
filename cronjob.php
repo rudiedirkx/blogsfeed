@@ -99,7 +99,13 @@ echo "- read fail!\n";
 // PART 2 -- create HTML from new posts //
 
 // get new posts
-$newPosts = $db->select('blog_posts', 'new = 1 ORDER BY blog_id, id ASC');
+$newPosts = $db->fetch("
+	SELECT p.*
+	FROM blog_posts p
+	JOIN blogs b ON b.id = p.blog_id
+	WHERE p.new = '1'
+	ORDER BY b.title, p.pubdate
+");
 
 // group by blog
 $newPostsByBlog = array();
