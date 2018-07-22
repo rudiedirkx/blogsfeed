@@ -54,10 +54,10 @@ class RSSReader {
 		// cycle posts
 		foreach ( $posts AS $blogPost ) {
 			// post info
-			$postUrl = (string)$blogPost->link ?: self::fakeLink($blogPost);
+			$postUrl = (string)$blogPost->link ?: self::fakeLink($blogPost) ?: self::enclosureUrl($blogPost);
 			$postGuid = (string)$blogPost->guid ?: (string)$blogPost->id ?: $postUrl;
 			$postTitle = (string)$blogPost->title;
-			$postImage = self::imageFromEnclosure($blogPost) ?: self::imageFromImage($blogPost) ?: self::imageFromDescription($blogPost) ?: self::imageFromContent($blogPost) ?: '';
+			$postImage = self::imageFromEnclosure($blogPost) ?: self::imageFromImage($blogPost) ?: self::imageFromItunes($blogPost) ?: self::imageFromDescription($blogPost) ?: self::imageFromContent($blogPost) ?: '';
 			$pubDate = (string)$blogPost->pubDate ?: (string)$blogPost->updated;
 
 			if ( $postImage && $postImage[0] == '/' ) {
@@ -93,6 +93,14 @@ class RSSReader {
 		}
 	}
 
+	static function imageFromItunes( $blogPost ) {
+		foreach ( $blogPost->children('http://www.itunes.com/dtds/podcast-1.0.dtd') as $child ) {
+			if ( $child->getName() == 'image' ) {
+				return (string) $child->attributes()->href;
+			}
+		}
+	}
+
 	static function imageFromDescription( $blogPost ) {
 		return self::imageFromString((string)@$blogPost->description);
 	}
@@ -122,6 +130,14 @@ class RSSReader {
 			$rel = (string)$link['rel'];
 			if ( !$rel || 'alternate' == $rel ) {
 				return (string)$link['href'];
+			}
+		}
+	}
+
+	static function enclosureUrl( $xml ) {
+		foreach ( $xml->enclosure AS $link ) {
+			if ( $link['url'] && (!$link['type'] || strpos((string)@$link['type'], 'image/') !== 0 ) ) {
+				return (string)$link['url'];
 			}
 		}
 	}
