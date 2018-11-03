@@ -1,6 +1,7 @@
 <!doctype html>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width" />
+<meta name="theme-color" content="#333" />
 
 <title>Blogs feed</title>
 
