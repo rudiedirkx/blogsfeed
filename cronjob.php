@@ -171,9 +171,11 @@ foreach ( $subscriptions AS $sub ) {
 // print_r($userHtmls);
 // echo "\n\n";
 
+$batchUrl = WEBSITE_BASE . '/batch.php?id=' . REQUEST_TIME;
+
 // send e-mail
 foreach ( $userHtmls AS $userId => $info ) {
-	$html = trim($info['html']);
+	$html = '<p><a href="' . $batchUrl . '">' . $batchUrl . "</a></p>\n\n" . trim($info['html']);
 	$subject = 'New blog posts from feed (' . $info['posts'] . ')';
 	$recipient = $info['email'];
 	echo "$recipient - $subject\n";
