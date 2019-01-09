@@ -2,7 +2,7 @@
 
 require __DIR__ . '/inc.bootstrap.php';
 
-User::check('add feed');
+User::check(['logged in', 'add feed']);
 $admin = User::access('admin feeds');
 
 $feedUrl = '';
