@@ -182,7 +182,7 @@ foreach ( $userHtmls AS $userId => $info ) {
 
 	if ( $html ) {
 		$headers = array(
-			'From: Blogs feed <blogsfeed@hoblox.nl>',
+			'From: Blogs feed <' . PROJECT_MAIL_FROM . '>',
 			'Content-type: text/html; charset=utf-8',
 		);
 		if ( !$debug ) {
