@@ -57,8 +57,10 @@ class User extends Model {
 			return true;
 		}
 
-		ini_set('session.cookie_lifetime', 99999999);
-		session_id() or session_start();
+		if (!session_id()) {
+			ini_set('session.cookie_lifetime', 99999999);
+			session_start();
+		}
 
 		if ( isset($_SESSION['blogsfeed']['uid'], $_SESSION['blogsfeed']['ip']) ) {
 			if ( $_SESSION['blogsfeed']['ip'] == md5($_SERVER['REMOTE_ADDR']) ) {
