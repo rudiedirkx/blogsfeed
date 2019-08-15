@@ -69,7 +69,7 @@ class RSSReader {
 			$data = array(
 				'guid' => $postGuid,
 				'title' => $postTitle,
-				'url' => $postUrl,
+				'url' => $postUrl ?: $postGuid,
 				'image' => $postImage,
 				'pubdate' => $pubDate ? strtotime($pubDate) : 0,
 			);
