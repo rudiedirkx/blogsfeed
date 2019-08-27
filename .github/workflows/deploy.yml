@@ -1,0 +1,13 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: maddox/actions/ssh@master
+      args: 'cd /var/www/webblocks.nl/blogsfeed/web && git pull && composer install -o --no-dev'
+      secrets: [abc, webblocks.nl, rudie]
