@@ -11,10 +11,11 @@ jobs:
     - name: Copy privkey
       env:
         PRIVKEY: ${{ secrets.PRIVKEY }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}
       run: echo "$PRIVKEY" > ~/privkey && chmod 0600 ~/privkey
     - name: Debug privkey
       run: cat ~/privkey
     - name: Deploy to hoblox
       run: |
         id
-        ssh -i ~/privkey -o "StrictHostKeyChecking=no" rudie@vps03.hoblox.nl -- 'cd /var/www/webblocks.nl/blogsfeed/web && git pull && composer install -o --no-dev'
+        ssh -i ~/privkey -o "StrictHostKeyChecking=no" $SSH_HOST -- 'cdbf && git pull && composer install -o --no-dev'
