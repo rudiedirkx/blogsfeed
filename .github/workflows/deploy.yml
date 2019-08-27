@@ -11,7 +11,7 @@ jobs:
     - name: Copy privkey
       env:
         PRIVKEY: ${{ secrets.PRIVKEY }}
-      run: echo "$PRIVKEY" > ~/privkey
+      run: echo "$PRIVKEY" > ~/privkey && chmod 0600 ~/privkey
     - name: Debug privkey
       run: cat ~/privkey
     - name: Deploy to hoblox
