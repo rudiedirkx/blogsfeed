@@ -15,4 +15,6 @@ jobs:
     - name: Debug privkey
       run: cat ~/privkey
     - name: Deploy to hoblox
-      run: ssh -i ~/privkey -o "StrictHostKeyChecking=no" rudie@vps03.hoblox.nl -- 'cd /var/www/webblocks.nl/blogsfeed/web && git pull && composer install -o --no-dev'
+      run: |
+        id
+        ssh -i ~/privkey -o "StrictHostKeyChecking=no" rudie@vps03.hoblox.nl -- 'cd /var/www/webblocks.nl/blogsfeed/web && git pull && composer install -o --no-dev'
