@@ -15,4 +15,5 @@ jobs:
     - name: Deploy to hoblox
       env:
         SSH_HOST: ${{ secrets.SSH_HOST }}
-      run: ssh -i ~/privkey -o "StrictHostKeyChecking=no" "$SSH_HOST" -- 'cdbf && git pull && composer install -o --no-dev'
+        SSH_TARGET_DIR: ${{ secrets.SSH_TARGET_DIR }}
+      run: ssh -i ~/privkey -o "StrictHostKeyChecking=no" "$SSH_HOST" -- 'cd "'${SSH_TARGET_DIR}'" && git pull && composer install -o --no-dev'
