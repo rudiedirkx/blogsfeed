@@ -8,4 +8,4 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - run: ssh -A vps03.hoblox.nl -- 'cd /var/www/webblocks.nl/blogsfeed/web && git pull && composer install -o --no-dev'
+    - run: ssh -o "StrictHostKeyChecking=no" rudie@vps03.hoblox.nl -- 'cd /var/www/webblocks.nl/blogsfeed/web && git pull && composer install -o --no-dev'
