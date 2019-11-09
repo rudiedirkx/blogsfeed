@@ -58,7 +58,7 @@ class User extends Model {
 		}
 
 		if (!session_id()) {
-			ini_set('session.cookie_lifetime', 99999999);
+			session_set_cookie_params(['httponly' => true, 'secure' => true, 'lifetime' => 99999999, 'samesite' => 'None']);
 			session_start();
 		}
 
