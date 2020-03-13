@@ -7,7 +7,7 @@
 			<td width="200">
 				<? if ($post->image): ?>
 					<a href="<?= h($post->url) ?>">
-						<img src="<?= h($post->image) ?>" alt="<?= h($post->title) ?>" style="max-width: 200px; max-height: 200px" />
+						<img src="<?= h($post->image) ?>" alt="<?= h($post->title) ?>" style="max-width: 250px; max-height: 250px" />
 					</a>
 				<? endif ?>
 			</td>
