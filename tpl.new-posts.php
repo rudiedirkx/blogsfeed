@@ -3,7 +3,7 @@
 
 <table border="1" cellpadding="10" cellspacing="0" width="100%">
 	<? foreach ($posts as $post): ?>
-		<tr>
+		<tr valign="top">
 			<td width="200">
 				<? if ($post->image): ?>
 					<a href="<?= h($post->url) ?>">
